@@ -13,10 +13,12 @@ A Minibus Booking System built with React Native (Expo). Passengers request ride
 
 ## Tech Stack
 
-- [Expo](https://expo.dev) (React Native, TypeScript template)
+- [Expo](https://expo.dev) SDK 54 (React Native, TypeScript template)
 - [React Navigation](https://reactnavigation.org) — native stack
 - [i18next](https://www.i18next.com) / [react-i18next](https://react.i18next.com) / [expo-localization](https://docs.expo.dev/versions/latest/sdk/localization/) — internationalization
 - [Husky](https://typicode.github.io/husky) — git hooks (pre-commit type-check)
+
+> **Note:** This project is pinned to Expo SDK 54. Make sure everyone on the team has an Expo Go app matching SDK 54 installed (check via `expo.dev/go` if the Play/App Store version lags). If your team decides to move to a newer SDK, everyone needs to upgrade Expo Go together — a version mismatch is the most common reason the app fails to open on a phone.
 
 ## Folder Structure
 
