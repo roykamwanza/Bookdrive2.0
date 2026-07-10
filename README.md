@@ -7,8 +7,8 @@ A Minibus Booking System built with React Native (Expo). Passengers request ride
 | | |
 |---|---|
 | **App name** | BookDrive |
-| **Primary color** | _TBD — set in `src/constants/theme.ts`_ |
-| **Secondary color** | _TBD — set in `src/constants/theme.ts`_ |
+| **Primary color** | `#121212` (Off-Black) |
+| **Secondary color** | `#FF6B00` (Safety Orange) |
 | Design tokens live in [`src/constants/theme.ts`](./src/constants/theme.ts) |
 
 ## Tech Stack

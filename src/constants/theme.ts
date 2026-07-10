@@ -1,10 +1,9 @@
 // BookDrive brand theme
 // One primary + one secondary color, per the project's design brief.
-// TODO: set these once your team locks in the brand colors in Stitch.
 
 export const colors = {
-  primary: '#000000', // TODO: primary brand color
-  secondary: '#000000', // TODO: secondary brand color
+  primary: '#121212', // Off-Black
+  secondary: '#FF6B00', // Safety Orange
   background: '#FFFFFF',
   surface: '#F5F5F5',
   text: '#121212',
