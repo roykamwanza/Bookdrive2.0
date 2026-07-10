@@ -1,0 +1,50 @@
+{
+  "common": {
+    "appName": "BookDrive",
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "back": "Back"
+  },
+  "auth": {
+    "login": "Log In",
+    "signUp": "Sign Up",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "password": "Password",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?"
+  },
+  "home": {
+    "greeting": "Where are you headed?",
+    "requestRide": "Request a Ride"
+  },
+  "booking": {
+    "pickup": "Pickup Location",
+    "destination": "Destination",
+    "requestRide": "Request Ride",
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "driver": {
+    "availableRequests": "Available Requests",
+    "accept": "Accept",
+    "updateStatus": "Update Status"
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "logout": "Log Out"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "notifications": "Notifications"
+  }
+}

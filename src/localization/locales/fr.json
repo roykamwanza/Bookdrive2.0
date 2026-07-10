@@ -1,0 +1,50 @@
+{
+  "common": {
+    "appName": "BookDrive",
+    "loading": "Chargement...",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "back": "Retour"
+  },
+  "auth": {
+    "login": "Connexion",
+    "signUp": "S'inscrire",
+    "phoneNumber": "Numéro de téléphone",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "haveAccount": "Vous avez déjà un compte ?"
+  },
+  "home": {
+    "greeting": "Où allez-vous ?",
+    "requestRide": "Demander une course"
+  },
+  "booking": {
+    "pickup": "Lieu de prise en charge",
+    "destination": "Destination",
+    "requestRide": "Demander une course",
+    "status": {
+      "pending": "En attente",
+      "accepted": "Acceptée",
+      "in_progress": "En cours",
+      "completed": "Terminée",
+      "cancelled": "Annulée"
+    }
+  },
+  "driver": {
+    "availableRequests": "Demandes disponibles",
+    "accept": "Accepter",
+    "updateStatus": "Mettre à jour le statut"
+  },
+  "profile": {
+    "title": "Profil",
+    "editProfile": "Modifier le profil",
+    "logout": "Déconnexion"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "notifications": "Notifications"
+  }
+}
