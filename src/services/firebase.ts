@@ -8,12 +8,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // These values are safe to keep in source control — they identify the
 // project, they are not secret credentials.
 const firebaseConfig = {
-  apiKey: 'AIzaSyCO11pBJgRXMYm3CANniF0OEDfNdLmnfks',
-  authDomain: 'bookdrive-10ff4.firebaseapp.com',
-  projectId: 'bookdrive-10ff4',
-  storageBucket: 'bookdrive-10ff4.firebasestorage.app',
-  messagingSenderId: '685310130154',
-  appId: '1:685310130154:web:f5abb75c34fe70a8366493',
+  apiKey: 'AIzaSyCfQUB_iSTOsE7m1zPOcoPa2NA4LuHvwpc',
+  authDomain: 'bookdrive2-d559b.firebaseapp.com',
+  projectId: 'bookdrive2-d559b',
+  storageBucket: 'bookdrive2-d559b.firebasestorage.app',
+  messagingSenderId: '959091877113',
+  appId: '1:959091877113:web:a0083b59c8b733f0ab2e28',
 };
 
 // Avoid re-initializing the app on hot reload (Expo/Metro fast refresh)
