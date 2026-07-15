@@ -5,16 +5,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 import { colors } from '../constants/theme';
 
-import SplashScreen from '../screens/Splash/SplashScreen';
-import LoginScreen from '../screens/Login/LoginScreen';
-import SignUpScreen from '../screens/SignUp/SignUpScreen';
-import HomeScreen from '../screens/Home/HomeScreen';
-import BookingScreen from '../screens/Booking/BookingScreen';
-import BookingHistoryScreen from '../screens/BookingHistory/BookingHistoryScreen';
-import BookingDetailsScreen from '../screens/BookingDetails/BookingDetailsScreen';
-import DriverRequestsScreen from '../screens/DriverRequests/DriverRequestsScreen';
-import ProfileScreen from '../screens/Profile/ProfileScreen';
-import SettingsScreen from '../screens/Settings/SettingsScreen';
+import SplashScreen from '../screens/splash/splashscreen';
+import LoginScreen from '../screens/login/loginscreen';
+import SignUpScreen from '../screens/signup/signupscreen';
+import HomeScreen from '../screens/home/homescreen';
+import BookingScreen from '../screens/booking/bookingscreen';
+import BookingHistoryScreen from '../screens/bookinghistory/bookinghistoryscreen';
+import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen';
+import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
+import ProfileScreen from '../screens/profile/profilescreen';
+import SettingsScreen from '../screens/settings/settingsscreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,7 +22,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Profile"
         screenOptions={{
           headerStyle: { backgroundColor: colors.primary },
           headerTintColor: colors.textInverse,
