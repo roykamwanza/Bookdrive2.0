@@ -1,17 +1,26 @@
-// BookDrive brand theme
-// One primary + one secondary color, per the project's design brief.
+// BookDrive brand theme - Updated for UI System Alignment
 
 export const colors = {
-  primary: '#121212', // Off-Black
-  secondary: '#FF6B00', // Safety Orange
+  primary: '#121212',       // Off-Black
+  secondary: '#FF6B00',     // Safety Orange
+  surface: '#131211',       // New Surface/Container shade
+  muted: '#797676',         // New TextSecondary shade
+  
+  // Retaining support colors for accessibility/logic
   background: '#FFFFFF',
-  surface: '#F5F5F5',
   text: '#121212',
   textInverse: '#FFFFFF',
-  muted: '#8A8A8A',
   border: '#E0E0E0',
   success: '#2E7D32',
   error: '#D32F2F',
+  bg: '#121212',
+  surfaceAlt: '#232326',
+  orange: '#FF6B00',
+  green: '#2ECC71',
+  red: '#3A2323',
+  redText: '#FF6B6B',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#9A9A9E',
 };
 
 export const spacing = {
