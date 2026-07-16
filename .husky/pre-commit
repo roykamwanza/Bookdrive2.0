@@ -1,1 +1,1 @@
-npx tsc --noEmit
+export PATH="$PATH:/c/Program Files/nodejs"

@@ -15,6 +15,7 @@ import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen
 import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
 import ProfileScreen from '../screens/profile/profilescreen';
 import SettingsScreen from '../screens/settings/settingsscreen';
+import { PassengerNavigator } from '../passager_workshop/navigation/PassengerNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,7 +23,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Profile"
+        initialRouteName="Passenger"
         screenOptions={{
           headerStyle: { backgroundColor: colors.primary },
           headerTintColor: colors.textInverse,
@@ -32,6 +33,7 @@ export default function RootNavigator() {
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Passenger" component={PassengerNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Booking" component={BookingScreen} />
         <Stack.Screen name="BookingHistory" component={BookingHistoryScreen} />
