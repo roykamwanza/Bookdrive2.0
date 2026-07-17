@@ -16,7 +16,8 @@ interface AuthContextValue {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string, role: UserRole) => Promise<void>;
+  signUp: (email: string, password: string, name: string, role: UserRole, phone?: string) => Promise<void>;
+  updateUser: (name: string, role: UserRole, phone?: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -27,11 +28,11 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 // role are packed into Firebase Auth's built-in displayName field as JSON,
 // e.g. '{"name":"Jane Doe","role":"driver"}'. This keeps the whole profile
 // inside Firebase Auth itself, no extra service needed.
-function encodeProfile(name: string, role: UserRole): string {
-  return JSON.stringify({ name, role });
+function encodeProfile(name: string, role: UserRole, phone?: string): string {
+  return JSON.stringify({ name, role, phone });
 }
 
-function decodeProfile(displayName: string | null): { name: string; role: UserRole } {
+function decodeProfile(displayName: string | null): { name: string; role: UserRole; phone?: string } {
   if (!displayName) {
     return { name: 'User', role: 'passenger' };
   }
@@ -40,6 +41,7 @@ function decodeProfile(displayName: string | null): { name: string; role: UserRo
     return {
       name: typeof parsed.name === 'string' ? parsed.name : 'User',
       role: parsed.role === 'driver' ? 'driver' : 'passenger',
+      phone: typeof parsed.phone === 'string' ? parsed.phone : undefined,
     };
   } catch {
     // Fallback for any account whose displayName isn't our JSON format.
@@ -61,12 +63,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      const { name, role } = decodeProfile(firebaseUser.displayName);
+      const { name, role, phone } = decodeProfile(firebaseUser.displayName);
       setUser({
         id: firebaseUser.uid,
         name,
         email: firebaseUser.email ?? undefined,
         role,
+        phone,
       });
       setIsLoading(false);
     });
@@ -87,18 +90,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signUp = async (email: string, password: string, name: string, role: UserRole) => {
+  const signUp = async (email: string, password: string, name: string, role: UserRole, phone?: string) => {
     setError(null);
     setIsLoading(true);
     try {
       const credential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(credential.user, { displayName: encodeProfile(name, role) });
+      await updateProfile(credential.user, { displayName: encodeProfile(name, role, phone) });
       // onAuthStateChanged above picks up the resulting user, but it won't
       // see the just-set displayName until the next event, so set it here too.
-      setUser({ id: credential.user.uid, name, email, role });
+      setUser({ id: credential.user.uid, name, email, role, phone });
       setIsLoading(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign up failed');
+      setIsLoading(false);
+      throw err;
+    }
+  };
+
+  const updateUser = async (name: string, role: UserRole, phone?: string) => {
+    if (!auth.currentUser) return;
+    setError(null);
+    setIsLoading(true);
+    try {
+      await updateProfile(auth.currentUser, { displayName: encodeProfile(name, role, phone) });
+      setUser({
+        id: auth.currentUser.uid,
+        name,
+        email: auth.currentUser.email ?? undefined,
+        role,
+        phone,
+      });
+      setIsLoading(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Update profile failed');
       setIsLoading(false);
       throw err;
     }
@@ -110,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, isLoading, error, login, signUp, logout }),
+    () => ({ user, isLoading, error, login, signUp, updateUser, logout }),
     [user, isLoading, error]
   );
 
