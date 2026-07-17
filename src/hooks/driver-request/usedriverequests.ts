@@ -65,6 +65,13 @@ export function useDriverRequests(): UseDriverRequestsResult {
     setRequests((prev) => prev.filter((r) => r.id !== request.id));
   }, []);
 
+  // Called once a trip's status stepper reaches 'completed'.
+  // TODO(Dev4): once BookingContext exists, this should also log the
+  // completed trip to Booking History instead of just removing it locally.
+  const completeRequest = useCallback((request: RideRequest) => {
+    setRequests((prev) => prev.filter((r) => r.id !== request.id));
+  }, []);
+
   return {
     requests,
     status,
@@ -72,5 +79,6 @@ export function useDriverRequests(): UseDriverRequestsResult {
     toggleStatus,
     acceptRequest,
     rejectRequest,
+    completeRequest,
   };
 }

@@ -1,25 +1,19 @@
-import { useState, useCallback } from 'react';
-import { RideRequest } from '../../types/driver-request/driver';
+import { useCallback, useState } from 'react';
+import type { TripStage } from '../../types/driver-request/driver';
 
-export type TripStatus = 'accepted' | 'arrived' | 'in_transit' | 'completed';
+const STAGE_ORDER: TripStage[] = ['requested', 'arrived', 'in-transit', 'completed'];
 
-export function useTripStatus(trip: RideRequest | null) {
-  const [status, setStatus] = useState<TripStatus>('accepted');
+export function useTripStatus() {
+  const [stage, setStage] = useState<TripStage>('requested');
 
   const advance = useCallback(() => {
-    setStatus((prev) => {
-      if (prev === 'accepted') return 'arrived';
-      if (prev === 'arrived') return 'in_transit';
-      if (prev === 'in_transit') return 'completed';
-      return prev;
+    setStage((prev) => {
+      const idx = STAGE_ORDER.indexOf(prev);
+      return STAGE_ORDER[Math.min(idx + 1, STAGE_ORDER.length - 1)];
     });
   }, []);
 
-  const reset = useCallback(() => {
-    setStatus('accepted');
-  }, []);
+  const reset = useCallback(() => setStage('requested'), []);
 
-  return { status, advance, reset, trip };
+  return { stage, advance, reset };
 }
-
-export default useTripStatus;

@@ -64,6 +64,16 @@ export interface StatusSummaryProps {
 
 //TripStatusView
 export interface TripStatusProps {
-  status: 'en-route' | 'arrived' | 'cancelled';
-  message: string;
+  request: RideRequest;
+  onDone: (request: RideRequest) => void;
+}
+
+export interface UseDriverRequestsResult {
+  requests: RideRequest[];
+  status: DriverStatus;
+  currentStation: string;
+  toggleStatus: () => void;
+  acceptRequest: (request: RideRequest) => void;
+  rejectRequest: (request: RideRequest) => void;
+  completeRequest: (request: RideRequest) => void; // <-- new
 }

@@ -18,8 +18,15 @@ import type { RideRequest } from '../../types/driver-request/driver';
 export default function DriverDashboardScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
-  const { requests, status, currentStation, toggleStatus, acceptRequest, rejectRequest } =
-    useDriverRequests();
+  const {
+    requests,
+    status,
+    currentStation,
+    toggleStatus,
+    acceptRequest,
+    rejectRequest,
+    completeRequest,
+  } = useDriverRequests();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,6 +66,7 @@ export default function DriverDashboardScreen() {
               request={item}
               onAccept={acceptRequest}
               onReject={rejectRequest}
+              onDone={completeRequest}
             />
           )}
           contentContainerStyle={styles.listContent}
