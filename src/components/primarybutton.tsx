@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
-import { colors, radii, spacing, typography } from '../constants/theme';
+import { colors, radii, spacing, typography } from '../constants/passengertheme';
 
 interface PrimaryButtonProps {
   label: string;

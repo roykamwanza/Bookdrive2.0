@@ -1,11 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { colors } from '../constants/theme';
-import type { PassengerStackParamList } from './passenger_types';
-import { PassengerHomeScreen } from '../screens/Home/PassengerHomeScreen';
-import { BookingScreen } from '../screens/Booking/BookingScreen';
-import { BookingHistoryScreen } from '../screens/BookingHistory/BookingHistoryScreen';
-import { BookingDetailsScreen } from '../screens/BookingDetails/BookingDetailsScreen';
+import { colors } from '../constants/passengertheme';
+import type { PassengerStackParamList } from './passengertypes';
+import { PassengerHomeScreen } from '../screens/passenger/home/passengerhomescreen';
+import { BookingScreen } from '../screens/passenger/booking/bookingscreen';
+import { BookingHistoryScreen } from '../screens/passenger/bookinghistory/bookinghistoryscreen';
+import { BookingDetailsScreen } from '../screens/passenger/bookingdetails/bookingdetailsscreen';
 
 const Stack = createNativeStackNavigator<PassengerStackParamList>();
 

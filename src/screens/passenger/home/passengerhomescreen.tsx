@@ -8,15 +8,15 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Card } from '../../components/card';
-import { MapPreview } from '../../components/map_preview';
-import { PrimaryButton } from '../../components/primary_button';
-import { LocationSearchInput } from '../../components/location_searchInput';
-import { colors, radii, spacing, typography } from '../../constants/theme';
-import { useCurrentLocation } from '../../hooks/use_current_location';
-import type { PassengerStackParamList } from '../../navigation/passenger_types';
-import type { PlaceResult } from '../../types/booking';
-import { reverseGeocode } from '../../services/booking_service';
+import { Card } from '../../../components/card';
+import { MapPreview } from '../../../components/mappreview';
+import { PrimaryButton } from '../../../components/primarybutton';
+import { LocationSearchInput } from '../../../components/locationsearchinput';
+import { colors, radii, spacing, typography } from '../../../constants/passengertheme';
+import { useCurrentLocation } from '../../../hooks/usecurrentlocation';
+import type { PassengerStackParamList } from '../../../navigation/passengertypes';
+import type { PlaceResult } from '../../../types/booking';
+import { reverseGeocode } from '../../../services/passengerbookingservice';
 
 type Props = NativeStackScreenProps<PassengerStackParamList, 'Home'>;
 

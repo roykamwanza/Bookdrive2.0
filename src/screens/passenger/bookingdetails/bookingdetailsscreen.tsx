@@ -9,16 +9,16 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Card } from '../../components/card';
-import { MapPreview } from '../../components/map_preview';
-import { StatusBadge } from '../../components/status_badge';
-import { FareBreakdownRow } from '../../components/fare_breakdown_row';
-import { PrimaryButton } from '../../components/primary_button';
-import { colors, spacing, typography } from '../../constants/theme';
-import { cancelBooking, getBookingById } from '../../services/booking_service';
-import { formatCurrency, formatDateTime } from '../../utils/format';
-import type { PassengerStackParamList } from '../../navigation/passenger_types';
-import type { Booking } from '../../types/booking';
+import { Card } from '../../../components/card';
+import { MapPreview } from '../../../components/mappreview';
+import { StatusBadge } from '../../../components/statusbadge';
+import { FareBreakdownRow } from '../../../components/farebreakdownrow';
+import { PrimaryButton } from '../../../components/primarybutton';
+import { colors, spacing, typography } from '../../../constants/passengertheme';
+import { cancelBooking, getBookingById } from '../../../services/passengerbookingservice';
+import { formatCurrency, formatDateTime } from '../../../utils/format';
+import type { PassengerStackParamList } from '../../../navigation/passengertypes';
+import type { Booking } from '../../../types/booking';
 
 type Props = NativeStackScreenProps<PassengerStackParamList, 'BookingDetails'>;
 

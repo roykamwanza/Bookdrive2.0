@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { colors, radii, spacing, typography } from '../constants/theme';
+import { colors, radii, spacing, typography } from '../constants/passengertheme';
 import type { BookingStatus } from '../types/booking';
 
 interface StatusBadgeProps {

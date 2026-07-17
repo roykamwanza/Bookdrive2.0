@@ -15,7 +15,7 @@ import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen
 import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
 import ProfileScreen from '../screens/profile/profilescreen';
 import SettingsScreen from '../screens/settings/settingsscreen';
-import { PassengerNavigator } from '../passager_workshop/navigation/PassengerNavigator';
+import { PassengerNavigator } from './passengernavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

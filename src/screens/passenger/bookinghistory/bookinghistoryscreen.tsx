@@ -9,13 +9,13 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Card } from '../../components/card';
-import { StatusBadge } from '../../components/status_badge';
-import { colors, spacing, typography } from '../../constants/theme';
-import { getBookingHistory } from '../../services/booking_service';
-import { formatCurrency, formatDateTime } from '../../utils/format';
-import type { PassengerStackParamList } from '../../navigation/passenger_types';
-import type { Booking } from '../../types/booking';
+import { Card } from '../../../components/card';
+import { StatusBadge } from '../../../components/statusbadge';
+import { colors, spacing, typography } from '../../../constants/passengertheme';
+import { getBookingHistory } from '../../../services/passengerbookingservice';
+import { formatCurrency, formatDateTime } from '../../../utils/format';
+import type { PassengerStackParamList } from '../../../navigation/passengertypes';
+import type { Booking } from '../../../types/booking';
 
 type Props = NativeStackScreenProps<PassengerStackParamList, 'BookingHistory'>;
 

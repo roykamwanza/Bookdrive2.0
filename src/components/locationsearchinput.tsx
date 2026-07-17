@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { colors, radii, spacing, typography } from '../constants/theme';
-import { searchLocations } from '../services/booking_service';
+import { colors, radii, spacing, typography } from '../constants/passengertheme';
+import { searchLocations } from '../services/passengerbookingservice';
 import type { PlaceResult } from '../types/booking';
 
 interface LocationSearchInputProps {

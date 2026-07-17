@@ -10,16 +10,16 @@ import {
   View,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Card } from '../../components/card';
-import { MapPreview } from '../../components/map_preview';
-import { LocationSearchInput } from '../../components/location_searchInput';
-import { FareBreakdownRow } from '../../components/fare_breakdown_row';
-import { PrimaryButton } from '../../components/primary_button';
-import { colors, radii, spacing, typography } from '../../constants/theme';
-import { createBooking, getFareEstimate } from '../../services/booking_service';
-import { formatCurrency, formatDistanceKm, formatEta } from '../../utils/format';
-import type { PassengerStackParamList } from '../../navigation/passenger_types';
-import type { FareEstimate, PlaceResult, VehicleType } from '../../types/booking';
+import { Card } from '../../../components/card';
+import { MapPreview } from '../../../components/mappreview';
+import { LocationSearchInput } from '../../../components/locationsearchinput';
+import { FareBreakdownRow } from '../../../components/farebreakdownrow';
+import { PrimaryButton } from '../../../components/primarybutton';
+import { colors, radii, spacing, typography } from '../../../constants/passengertheme';
+import { createBooking, getFareEstimate } from '../../../services/passengerbookingservice';
+import { formatCurrency, formatDistanceKm, formatEta } from '../../../utils/format';
+import type { PassengerStackParamList } from '../../../navigation/passengertypes';
+import type { FareEstimate, PlaceResult, VehicleType } from '../../../types/booking';
 
 type Props = NativeStackScreenProps<PassengerStackParamList, 'Booking'>;
 
