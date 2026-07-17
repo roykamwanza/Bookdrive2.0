@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../constants/theme";
-
+import { colors } from "../../constants/theme";
 
 export const styles = StyleSheet.create({
   emptyState: {
@@ -11,7 +10,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   emptyStateText: {
-    color: colors.textSecondary,
+    color: colors.muted,
     fontSize: 13,
   },
 });

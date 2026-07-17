@@ -35,7 +35,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="DriverRequests"
         screenOptions={{
           headerStyle: { backgroundColor: colors.primary },
           headerTintColor: colors.textInverse,

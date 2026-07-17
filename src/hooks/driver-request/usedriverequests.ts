@@ -54,12 +54,12 @@ export function useDriverRequests(): UseDriverRequestsResult {
   }, []);
 
   const acceptRequest = useCallback((request: RideRequest) => {
-  setRequests((prev) => 
-    prev.map((r) => 
-      r.id === request.id ? { ...r, status: 'accepted' } : r
-    )
-  );
-}, []);
+    setRequests((prev) =>
+      prev.map((r) =>
+        r.id === request.id ? { ...r, status: 'accepted' as const } : r
+      )
+    );
+  }, []);
 
   const rejectRequest = useCallback((request: RideRequest) => {
     setRequests((prev) => prev.filter((r) => r.id !== request.id));

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { styles } from './tripstatusview.styles';
-import { colors } from '../../../constants/theme';
+import { styles } from '../../styles/driver-request/tripstatusviewstyles';
+import { colors } from '../../constants/theme';
 
 export interface TripStatusProps {
   status: 'en-route' | 'arrived' | 'cancelled';

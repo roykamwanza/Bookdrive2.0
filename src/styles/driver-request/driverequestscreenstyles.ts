@@ -4,7 +4,7 @@ import { colors } from "../../constants/theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bg,
+    backgroundColor: colors.background,
   },
   requestsHeader: {
     flexDirection: 'row',
@@ -15,18 +15,18 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   requestsTitle: {
-    color: colors.textPrimary,
+    color: colors.text,
     fontSize: 16,
     fontWeight: '700',
   },
   countBadge: {
-    backgroundColor: colors.orange,
+    backgroundColor: colors.border,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 10,
   },
   countBadgeText: {
-    color: colors.textPrimary,
+    color: colors.text,
     fontSize: 11,
     fontWeight: '700',
   },

@@ -20,6 +20,13 @@ export interface RideRequest {
   timestamp: Date;
 }
 
+export const TRIP_DISPLAY_STATUS = {
+  EN_ROUTE: 'en-route',
+} as const;
+ 
+export type TripDisplayStatus = (typeof TRIP_DISPLAY_STATUS)[keyof typeof TRIP_DISPLAY_STATUS];
+ 
+
 // 3. State Management Types
 export interface DriverLocationState {
   currentStationName: string;

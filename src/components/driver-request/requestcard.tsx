@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../../constants/theme';
-import { styles } from './requestcard.styles';
-import { RideRequest } from '../../../types/driver-request/driver';
-import { RequestCardProps } from '../../../types/driver-request/driver';
-
-
+import { colors } from '../../constants/theme';
+import { styles } from '../../styles/driver-request/requestcardstyles';
+import { RideRequest } from '../../types/driver-request/driver';
+import { RequestCardProps } from '../../types/driver-request/driver';
+import { requestCardString } from '../../constants/driver-request/strings';
 
 // TODO(Dev1): swap the two TouchableOpacity buttons below for <CustomButton
 // variant="primary" /> and <CustomButton variant="secondary" /> once the
@@ -21,13 +20,17 @@ export function RequestCard({ request, onAccept, onReject }: RequestCardProps) {
         <View style={styles.requestInfo}>
           <Text style={styles.passengerName}>{request.passengerName}</Text>
           <View style={styles.distanceRow}>
-            <Ionicons name="location-sharp" size={12} color={colors.textSecondary} />
-            <Text style={styles.distanceText}>{request.distanceAwayKm} km away</Text>
+            <Ionicons name="location-sharp" size={12} color={colors.muted} />
+            <Text style={styles.distanceText}>
+              {request.distanceAwayKm} {requestCardString.distanceUnitLabel}
+            </Text>
           </View>
         </View>
         <View style={styles.fareBlock}>
-          <Text style={styles.fareAmount}>K{request.estimatedFare.toFixed(2)}</Text>
-          <Text style={styles.fareLabel}>EST. FARE</Text>
+          <Text style={styles.fareAmount}>
+            {requestCardString.currencySymbol}{request.estimatedFare.toFixed(2)}
+          </Text>
+          <Text style={styles.fareLabel}>{requestCardString.fareLabel}</Text>
         </View>
       </View>
 
@@ -35,16 +38,16 @@ export function RequestCard({ request, onAccept, onReject }: RequestCardProps) {
         <TouchableOpacity
           style={styles.rejectButton}
           onPress={() => onReject(request)}
-          accessibilityLabel={`Reject request from ${request.passengerName}`}
+          accessibilityLabel={requestCardString.rejectAccessibilityLabel(request.passengerName)}
         >
-          <Text style={styles.rejectText}>Reject</Text>
+          <Text style={styles.rejectText}>{requestCardString.rejectLabel}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.acceptButton}
           onPress={() => onAccept(request)}
-          accessibilityLabel={`Accept request from ${request.passengerName}`}
+          accessibilityLabel={requestCardString.acceptAccessibilityLabel(request.passengerName)}
         >
-          <Text style={styles.acceptText}>Accept</Text>
+          <Text style={styles.acceptText}>{requestCardString.acceptLabel}</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,27 +1,29 @@
 import React from 'react';
-import { StatusBar, SafeAreaView, StyleSheet, FlatList, View, Text } from 'react-native';
+import { StatusBar, SafeAreaView, FlatList, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../../constants/theme';
-import { styles } from './styles'
-import { useDriverRequests } from '../../hooks/driver-request/useDriverRequests';
+import { DRIVER_REQUEST_STRINGS } from '../../constants/driver-request/strings';
+import { styles } from '../../styles/driver-request/driverequestscreenstyles'
+import { useDriverRequests } from '../../hooks/driver-request/usedriverequests';
 import {
   DriverHeader,
   MapPreview,
   StatusSummary,
-  RequestCard,
+  RequestListItem,
   EmptyRequestsState,
-  TripStatusView,
 } from '../../components/driver-request';
 import type { RideRequest } from '../../types/driver-request/driver';
 
 export default function DriverDashboardScreen() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const { requests, status, currentStation, toggleStatus, acceptRequest, rejectRequest } =
     useDriverRequests();
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="light-content" backgroundColor={colors.background} />
 
       <DriverHeader onBack={() => navigation.goBack()} />
       <MapPreview />
@@ -32,10 +34,16 @@ export default function DriverDashboardScreen() {
       />
 
       <View style={styles.requestsHeader}>
-        <Text style={styles.requestsTitle}>Incoming Requests</Text>
+        <Text style={styles.requestsTitle}>
+          {t('driver.incomingRequests', DRIVER_REQUEST_STRINGS.incomingRequests)}
+        </Text>
         {requests.length > 0 && (
           <View style={styles.countBadge}>
-            <Text style={styles.countBadgeText}>{requests.length} new</Text>
+            <Text style={styles.countBadgeText}>
+              {t('driver.newCount', DRIVER_REQUEST_STRINGS.newCount, {
+                count: requests.length,
+              })}
+            </Text>
           </View>
         )}
       </View>
@@ -46,30 +54,13 @@ export default function DriverDashboardScreen() {
         <FlatList
           data={requests}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }: { item: RideRequest }) => {
-            // If the request is pending, show the card
-            if (item.status === 'pending') {
-              return (
-                <RequestCard
-                  request={item} 
-                  onAccept={acceptRequest} 
-                  onReject={rejectRequest} 
-                />
-              );
-            } 
-    
-             // If the request was accepted, show the status view instead
-            if (item.status === 'accepted') {
-              return (
-                <TripStatusView 
-                  status="en-route" 
-                  message="Trip accepted! Proceeding to pickup." 
-                />
-              );
-            }
-
-            return null; // Don't render anything for 'declined'
-          }}
+          renderItem={({ item }: { item: RideRequest }) => (
+            <RequestListItem
+              request={item}
+              onAccept={acceptRequest}
+              onReject={rejectRequest}
+            />
+          )}
           contentContainerStyle={styles.listContent}
           showsVerticalScrollIndicator={false}
         />

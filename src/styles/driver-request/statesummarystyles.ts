@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../constants/theme";
+import { colors } from "../../constants/theme";
 
 export const styles = StyleSheet.create({
   statusRow: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     padding: 12,
   },
   statusCardLabel: {
-    color: colors.textSecondary,
+    color: colors.muted,
     fontSize: 10,
     fontWeight: '600',
     letterSpacing: 0.5,
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     gap: 6,
   },
   statusCardValue: {
-    color: colors.textPrimary,
+    color: colors.textInverse,
     fontSize: 14,
     fontWeight: '600',
   },
