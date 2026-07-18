@@ -11,7 +11,7 @@ import HomeScreen from '../screens/home/HomeScreen';
 import BookingScreen from '../screens/booking/BookingScreen';
 import BookingHistoryScreen from '../screens/bookinghistory/BookingHistoryScreen';
 import BookingDetailsScreen from '../screens/bookingdetails/BookingDetailsScreen';
-import DriverRequestsScreen from '../screens/driver-requests/driverequestscreen';
+import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
 //import ProfileScreen from '../screens/profile/ProfileScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 

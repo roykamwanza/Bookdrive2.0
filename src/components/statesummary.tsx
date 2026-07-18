@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../constants/theme';
-import type { DriverStatus } from '../../types/driver-request/driver';
-import { styles } from '../../styles/driver-request/statesummarystyles';
-import { StatusSummaryProps } from '../../types/driver-request/driver';
-import { statusSummaryString } from '../../constants/driver-request/strings';
+import { colors } from '../constants/theme';
+import type { DriverStatus } from '../types/driver';
+import { styles } from '../styles/statesummarystyles';
+import { StatusSummaryProps } from '../types/driver';
+import { statusSummaryString } from '../constants/strings';
 
 export function StatusSummary({ currentStation, status, onToggleStatus }: StatusSummaryProps) {
   const isAccepting = status === 'accepting';

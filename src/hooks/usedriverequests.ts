@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import type { DriverStatus, RideRequest } from '../../types/driver-request/driver';
-import { UseDriverRequestsResult } from '../../types/driver-request/driver';
+import type { DriverStatus, RideRequest } from '../types/driver';
+import { UseDriverRequestsResult } from '../types/driver';
 // TODO(Dev4): once BookingContext exists, replace the local mock state below
 // with a subscription to live request events instead of useState.
 

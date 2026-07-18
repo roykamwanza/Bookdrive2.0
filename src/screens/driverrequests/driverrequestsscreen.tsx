@@ -3,17 +3,17 @@ import { StatusBar, SafeAreaView, FlatList, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../constants/theme';
-import { DRIVER_REQUEST_STRINGS } from '../../constants/driver-request/strings';
-import { styles } from '../../styles/driver-request/driverequestscreenstyles'
-import { useDriverRequests } from '../../hooks/driver-request/usedriverequests';
+import { DRIVER_REQUEST_STRINGS } from '../../constants/strings';
+import { styles } from '../../styles/driverequestscreenstyles'
+import { useDriverRequests } from '../../hooks/usedriverequests';
 import {
   DriverHeader,
   MapPreview,
   StatusSummary,
   RequestListItem,
   EmptyRequestsState,
-} from '../../components/driver-request';
-import type { RideRequest } from '../../types/driver-request/driver';
+} from '../../components';
+import type { RideRequest } from '../../types/driver';
 
 export default function DriverDashboardScreen() {
   const navigation = useNavigation();

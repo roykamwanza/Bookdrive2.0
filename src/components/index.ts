@@ -1,5 +1,5 @@
 export * from './driverheader';
-export * from './map.preview';
+export * from './mappreview';
 export * from './statesummary';
 export * from './requestcard';
 export * from './emptyrequeststate';

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../constants/theme';
-import { styles } from '../../styles/driver-request/driverheaderstyles';
-import { DriverHeaderProps } from '../../types/driver-request/driver';
-import { driverHeaderString } from '../../constants/driver-request/strings';
+import { colors } from '../constants/theme';
+import { styles } from '../styles/driverheaderstyles';
+import { DriverHeaderProps } from '../types/driver';
+import { driverHeaderString } from '../constants/strings';
 
 export function DriverHeader({ onBack }: DriverHeaderProps) {
   return (

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../constants/theme";
+import { colors } from "../constants/theme";
 
 // NOTE: using colors.surface as a stand-in for an "elevated surface" tone
 // (avatar, reject button) until Dev1 adds a distinct token for it.
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 11,
     borderRadius: 10,
-    opacity: .7,
+    opacity: .6,
     backgroundColor: colors.error,
     alignItems: 'center',
   },
@@ -87,6 +87,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 11,
     borderRadius: 10,
+    opacity: .8,
     backgroundColor: colors.secondary,
     alignItems: 'center',
   },

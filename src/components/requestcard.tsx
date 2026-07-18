@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors } from '../../constants/theme';
-import { styles } from '../../styles/driver-request/requestcardstyles';
-import { RideRequest } from '../../types/driver-request/driver';
-import { RequestCardProps } from '../../types/driver-request/driver';
-import { requestCardString } from '../../constants/driver-request/strings';
+import { colors } from '../constants/theme';
+import { styles } from '../styles/requestcardstyles';
+import { RideRequest } from '../types/driver';
+import { RequestCardProps } from '../types/driver';
+import { requestCardString } from '../constants/strings';
 
 // TODO(Dev1): swap the two TouchableOpacity buttons below for <CustomButton
 // variant="primary" /> and <CustomButton variant="secondary" /> once the

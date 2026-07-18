@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../constants/theme";
+import { colors } from "../constants/theme";
 
 // NOTE: Dev1's theme.ts doesn't yet expose a distinct "elevated surface"
 // tone (only `surface`). Using `colors.surface` here as a stand-in for the

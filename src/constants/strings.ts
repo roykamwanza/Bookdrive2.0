@@ -1,12 +1,5 @@
-// Centralized copy for all driver flow screens/components.
-//
-// TODO(Dev5): once i18next + expo-localization are wired in, replace usages
-// of these constants with t('driver.<section>.<key>') calls and move these
-// as key/value pairs into the locale resource files. Keeping strings out of
-// components now means that swap only touches this file.
-
 export const driverHeaderString = {
-  brandName: 'QuickBus',
+  brandName: 'BOOKDRIVE',
   modeLabel: 'DRIVER MODE',
 } as const;
 

@@ -1,8 +1,7 @@
-// src/components/driver-request/requestlistitem.tsx
 import React from 'react';
 import { RequestCard } from './requestcard';
 import { TripStatusView } from './tripstatusview';
-import type { RideRequest } from '../../types/driver-request/driver';
+import type { RideRequest } from '../types/driver';
 
 interface RequestListItemProps {
   request: RideRequest;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { styles } from '../../styles/driver-request/tripstatusviewstyles';
-import { colors } from '../../constants/theme';
-import { useTripStatus } from '../../hooks/driver-request/usetripstatus';
-import type { TripStage } from '../../types/driver-request/driver';
-import type { TripStatusProps } from '../../types/driver-request/driver';
+import { styles } from '../styles/tripstatusviewstyles';
+import { colors } from '../constants/theme';
+import { useTripStatus } from '../hooks/usetripstatus';
+import type { TripStage } from '../types/driver';
+import type { TripStatusProps } from '../types/driver';
 
 const STEPS: { key: TripStage; label: string }[] = [
   { key: 'requested', label: 'Accepted' },

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { TripStage } from '../../types/driver-request/driver';
+import type { TripStage } from '../types/driver';
 
 const STAGE_ORDER: TripStage[] = ['requested', 'arrived', 'in-transit', 'completed'];
 
