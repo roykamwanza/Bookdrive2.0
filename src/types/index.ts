@@ -38,4 +38,6 @@ export type RootStackParamList = {
   DriverRequests: undefined;
   Profile: undefined;
   Settings: undefined;
+  EditProfile: undefined;
+
 };

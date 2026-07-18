@@ -23,11 +23,6 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-// We don't use a separate database (Firestore requires a billing account
-// to be enabled on the Google Cloud project). Instead, the user's name and
-// role are packed into Firebase Auth's built-in displayName field as JSON,
-// e.g. '{"name":"Jane Doe","role":"driver"}'. This keeps the whole profile
-// inside Firebase Auth itself, no extra service needed.
 function encodeProfile(name: string, role: UserRole, phone?: string): string {
   return JSON.stringify({ name, role, phone });
 }
@@ -44,7 +39,6 @@ function decodeProfile(displayName: string | null): { name: string; role: UserRo
       phone: typeof parsed.phone === 'string' ? parsed.phone : undefined,
     };
   } catch {
-    // Fallback for any account whose displayName isn't our JSON format.
     return { name: displayName, role: 'passenger' };
   }
 }
@@ -54,7 +48,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Keep the user in sync across app restarts / screens.
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (!firebaseUser) {
@@ -82,7 +75,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // onAuthStateChanged above picks up the resulting user automatically.
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
       setIsLoading(false);
@@ -96,8 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const credential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(credential.user, { displayName: encodeProfile(name, role, phone) });
-      // onAuthStateChanged above picks up the resulting user, but it won't
-      // see the just-set displayName until the next event, so set it here too.
+      
       setUser({ id: credential.user.uid, name, email, role, phone });
       setIsLoading(false);
     } catch (err) {
