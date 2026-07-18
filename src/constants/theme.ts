@@ -4,12 +4,12 @@
 export const colors = {
   primary: '#121212', // Off-Black
   secondary: '#FF6B00', // Safety Orange
-  background: '#121212',
-  surface: '#1C1C1E',
-  text: '#FFFFFF',
+  background: '#121212', // Off-Black
+  surface: '#1C1C1E', // Dark Surface
+  text: '#FFFFFF', // White text
   textInverse: '#FFFFFF',
   muted: '#8A8A8A',
-  border: '#2C2C2E',
+  border: '#2C2C2E', // Dark Border
   success: '#2E7D32',
   error: '#D32F2F',
 };
