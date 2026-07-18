@@ -1,4 +1,5 @@
 import { BookingStatus, UserRole } from '../constants/app';
+import type { PlaceResult, VehicleType } from './booking';
 
 export interface User {
   id: string;
@@ -31,9 +32,14 @@ export type RootStackParamList = {
   Splash: undefined;
   Login: undefined;
   SignUp: undefined;
-  Passenger: undefined;
   Home: undefined;
-  Booking: undefined;
+  Booking:
+    | {
+        pickup?: PlaceResult;
+        dropoff?: PlaceResult;
+        vehicleType?: VehicleType;
+      }
+    | undefined;
   BookingHistory: undefined;
   BookingDetails: { bookingId: string };
   DriverRequests: undefined;

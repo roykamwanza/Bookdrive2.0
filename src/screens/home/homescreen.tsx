@@ -1,203 +1,175 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { colors, spacing, typography, radius } from '../../constants/theme';
-import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '../../context/authcontext';
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Card } from '../../components/card';
+import { MapPreview } from '../../components/mappreview';
+import { PrimaryButton } from '../../components/primarybutton';
+import { LocationSearchInput } from '../../components/locationsearchinput';
+import { colors, radii, spacing, typography } from '../../constants/passengertheme';
+import { useCurrentLocation } from '../../hooks/usecurrentlocation';
+import type { RootStackParamList } from '../../types';
+import type { PlaceResult } from '../../types/booking';
+import { reverseGeocode } from '../../services/passengerbookingservice';
 
-interface HomeScreenProps {
-  navigation?: any;
-}
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export default function HomeScreen({ navigation }: HomeScreenProps) {
-  const { t } = useTranslation();
-  const { user, logout } = useAuth();
+export default function HomeScreen({ navigation }: Props) {
+  const { location, loading, error, permissionDenied, refresh } = useCurrentLocation();
+  const [dropoff, setDropoff] = useState<PlaceResult | null>(null);
+
+  async function handleQuickBook() {
+    const pickup = location ? await reverseGeocode(location) : undefined;
+    navigation.navigate('Booking', { pickup, dropoff: dropoff ?? undefined });
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.welcomeText}>Hello,</Text>
-          <Text style={styles.nameText}>{user?.name || 'Guest User'}</Text>
-        </View>
-        <TouchableOpacity style={styles.profileBadge} onPress={() => navigation?.navigate('Profile')}>
-          <Ionicons name="person-circle-outline" size={32} color={colors.secondary} />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Banner Card */}
-        <View style={styles.bannerCard}>
-          <Text style={styles.bannerTitle}>{t('home.greeting')}</Text>
-          <Text style={styles.bannerSubtitle}>Book rapid and safe minibus trips across town instantly.</Text>
-          <TouchableOpacity style={styles.bannerBtn} onPress={() => navigation?.navigate('Booking')}>
-            <Text style={styles.bannerBtnText}>{t('home.requestRide')}</Text>
-            <Ionicons name="arrow-forward" size={16} color={colors.primary} />
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.iconButton} activeOpacity={0.8}>
+            <Text style={styles.iconGlyph}>Menu</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('BookingHistory')}>
+            <Text style={styles.historyLink}>History</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Navigation Grid */}
-        <Text style={styles.sectionTitle}>Quick Access</Text>
-        <View style={styles.grid}>
-          {/* Profile Card */}
-          <TouchableOpacity style={styles.gridCard} onPress={() => navigation?.navigate('Profile')}>
-            <View style={[styles.iconContainer, { backgroundColor: 'rgba(255, 107, 0, 0.1)' }]}>
-              <Ionicons name="person" size={24} color={colors.secondary} />
-            </View>
-            <Text style={styles.gridCardTitle}>User Profile</Text>
-            <Text style={styles.gridCardDesc}>View Driver & Passenger profiles</Text>
-          </TouchableOpacity>
+        <MapPreview currentLocation={location} height={170} />
 
-          {/* Driver Requests Card */}
-          <TouchableOpacity style={styles.gridCard} onPress={() => navigation?.navigate('DriverRequests')}>
-            <View style={[styles.iconContainer, { backgroundColor: 'rgba(18, 18, 18, 0.05)' }]}>
-              <Ionicons name="bus" size={24} color={colors.primary} />
-            </View>
-            <Text style={styles.gridCardTitle}>Driver Requests</Text>
-            <Text style={styles.gridCardDesc}>View and accept rides</Text>
-          </TouchableOpacity>
+        {permissionDenied && (
+          <Card style={styles.noticeCard}>
+            <Text style={styles.noticeText}>
+              Location access is off, so we can't set your pickup automatically.
+            </Text>
+            <PrimaryButton label="Enable location" onPress={refresh} variant="outline" />
+          </Card>
+        )}
 
-          {/* Booking History Card */}
-          <TouchableOpacity style={styles.gridCard} onPress={() => navigation?.navigate('BookingHistory')}>
-            <View style={[styles.iconContainer, { backgroundColor: 'rgba(18, 18, 18, 0.05)' }]}>
-              <Ionicons name="time" size={24} color={colors.primary} />
-            </View>
-            <Text style={styles.gridCardTitle}>Ride History</Text>
-            <Text style={styles.gridCardDesc}>View previous bookings</Text>
-          </TouchableOpacity>
+        {error && !permissionDenied && (
+          <Card style={styles.noticeCard}>
+            <Text style={styles.noticeText}>{error}</Text>
+          </Card>
+        )}
 
-          {/* Settings Card */}
-          <TouchableOpacity style={styles.gridCard} onPress={() => navigation?.navigate('Settings')}>
-            <View style={[styles.iconContainer, { backgroundColor: 'rgba(18, 18, 18, 0.05)' }]}>
-              <Ionicons name="settings-sharp" size={24} color={colors.primary} />
-            </View>
-            <Text style={styles.gridCardTitle}>Settings</Text>
-            <Text style={styles.gridCardDesc}>App language & preferences</Text>
-          </TouchableOpacity>
+        <Text style={styles.greeting}>Where are you headed?</Text>
+
+        <LocationSearchInput
+          label="Drop-off"
+          placeholder="Search destination"
+          value={dropoff}
+          onSelect={setDropoff}
+          dotColor={colors.mapRouteDropoff}
+        />
+
+        <PrimaryButton
+          label="Book a ride"
+          onPress={handleQuickBook}
+          disabled={loading}
+          style={styles.bookButton}
+        />
+
+        <Text style={styles.sectionTitle}>Quick actions</Text>
+        <View style={styles.quickActionsRow}>
+          <QuickAction label="New booking" onPress={() => navigation.navigate('Booking', {})} />
+          <QuickAction label="History" onPress={() => navigation.navigate('BookingHistory')} />
         </View>
-
-        {/* Logout at bottom */}
-        <TouchableOpacity style={styles.logoutBtn} onPress={logout}>
-          <Ionicons name="log-out-outline" size={18} color={colors.muted} style={{ marginRight: 6 }} />
-          <Text style={styles.logoutBtnText}>Log Out of Account</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
+function QuickAction({ label, onPress }: { label: string; onPress: () => void }) {
+  return (
+    <TouchableOpacity style={styles.quickAction} onPress={onPress} activeOpacity={0.8}>
+      <Text style={styles.quickActionLabel}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  content: {
+    padding: spacing.md,
+    paddingBottom: spacing.xxl,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  welcomeText: {
-    ...typography.caption,
-    color: colors.muted,
-  },
-  nameText: {
-    ...typography.h3,
-    color: colors.primary,
-    fontWeight: '700',
-  },
-  profileBadge: {
-    padding: 4,
-  },
-  scrollContent: {
-    padding: spacing.lg,
-  },
-  bannerCard: {
-    backgroundColor: colors.primary,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    marginBottom: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  bannerTitle: {
-    ...typography.h2,
-    color: colors.textInverse,
-    fontWeight: '700',
-    marginBottom: spacing.xs,
-  },
-  bannerSubtitle: {
-    ...typography.body,
-    color: colors.muted,
-    marginBottom: spacing.md,
-    lineHeight: 20,
-  },
-  bannerBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    backgroundColor: colors.secondary,
-    paddingVertical: 10,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.pill,
-  },
-  bannerBtnText: {
-    ...typography.body,
-    color: colors.textInverse,
-    fontWeight: '700',
-    marginRight: 6,
-  },
-  sectionTitle: {
-    ...typography.h3,
-    color: colors.primary,
-    marginBottom: spacing.md,
-    fontWeight: '600',
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  gridCard: {
-    width: '48%',
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    marginBottom: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  iconContainer: {
-    width: 44,
-    height: 44,
-    borderRadius: radius.sm,
-    justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: spacing.sm,
   },
-  gridCardTitle: {
-    ...typography.body,
-    fontWeight: '700',
-    color: colors.primary,
-    marginBottom: 2,
-  },
-  gridCardDesc: {
-    ...typography.caption,
-    color: colors.muted,
-  },
-  logoutBtn: {
-    flexDirection: 'row',
+  iconButton: {
+    minWidth: 44,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: spacing.xl,
-    paddingVertical: 12,
+    paddingHorizontal: spacing.sm,
   },
-  logoutBtnText: {
-    ...typography.caption,
-    fontWeight: '600',
-    color: colors.muted,
+  iconGlyph: {
+    fontSize: typography.size.xs,
+    color: colors.textPrimary,
+    fontWeight: typography.weight.semibold,
+  },
+  historyLink: {
+    color: colors.primary,
+    fontSize: typography.size.sm,
+    fontWeight: typography.weight.semibold,
+  },
+  noticeCard: {
+    marginTop: spacing.sm,
+    gap: spacing.sm,
+  },
+  noticeText: {
+    color: colors.textSecondary,
+    fontSize: typography.size.sm,
+    marginBottom: spacing.xs,
+  },
+  greeting: {
+    marginTop: spacing.md,
+    fontSize: typography.size.lg,
+    fontWeight: typography.weight.medium,
+    color: colors.textPrimary,
+    marginBottom: spacing.sm,
+  },
+  bookButton: {
+    marginTop: spacing.md,
+  },
+  sectionTitle: {
+    marginTop: spacing.lg,
+    marginBottom: spacing.sm,
+    fontSize: typography.size.sm,
+    fontWeight: typography.weight.semibold,
+    color: colors.textSecondary,
+  },
+  quickActionsRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  quickAction: {
+    flex: 1,
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  quickActionLabel: {
+    color: colors.textPrimary,
+    fontWeight: typography.weight.medium,
+    fontSize: typography.size.sm,
   },
 });
