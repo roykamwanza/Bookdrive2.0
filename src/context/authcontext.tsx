@@ -7,7 +7,8 @@ interface AuthContextValue {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string, role: UserRole) => Promise<void>;
+  signUp: (email: string, password: string, name: string, role: UserRole, phone?: string) => Promise<void>;
+  updateUser: (name: string, role: UserRole, phone?: string) => Promise<void>;
   logout: () => Promise<void>;
   switchRole: () => void;
 }
@@ -33,8 +34,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const login = async () => {};
-  const signUp = async () => {};
+  const login = async (email: string, password: string) => {};
+  
+  const signUp = async (email: string, password: string, name: string, role: UserRole, phone?: string) => {
+    setUser({
+      id: 'demo_user_101',
+      name,
+      email,
+      role,
+      phone,
+    });
+  };
+
+  const updateUser = async (name: string, role: UserRole, phone?: string) => {
+    setUser((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        name,
+        role,
+        phone,
+      };
+    });
+  };
+
   const logout = async () => {
     setUser(null);
   };
@@ -52,7 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, isLoading, error, login, signUp, logout, switchRole }),
+    () => ({ user, isLoading, error, login, signUp, updateUser, logout, switchRole }),
     [user, isLoading, error]
   );
 
