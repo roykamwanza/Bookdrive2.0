@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileLayout from './profilelayout';
-import { PassengerProfileScreenProps } from '../../types/profile/types';
-import { usePassengerProfileScreen } from '../../hooks/profile/hooks';
+import { PassengerProfileScreenProps } from '../../types/profile';
+import { usePassengerProfileScreen } from '../../hooks/profile';
 import {
   ROLE_PASSENGER,
   STAT_LABEL_TOTAL_RIDES,
@@ -11,7 +11,7 @@ import {
   PASSENGER_ACTION_PROMOS,
   PASSENGER_ACTION_SAFETY,
   DEFAULT_ACTION_LOGOUT,
-} from '../../constants/profile/constants';
+} from '../../constants/profile';
 
 export default function PassengerProfileScreen({ navigation, route }: PassengerProfileScreenProps) {
   const { passenger, onBack, onEdit, onLogout } = usePassengerProfileScreen({ navigation, route });

@@ -3,15 +3,15 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar } from 'reac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../constants/theme';
-import { ProfileLayoutProps } from '../../types/profile/types';
-import { useProfileLayout } from '../../hooks/profile/hooks';
-import { profileLayoutStyles as styles } from '../../styles/profile/styles';
+import { ProfileLayoutProps } from '../../types/profile';
+import { useProfileLayout } from '../../hooks/profile';
+import { profileLayoutStyles as styles } from '../../styles/profile';
 import {
   SECTION_TITLE_ACCOUNT_SETTINGS,
   BUTTON_TEXT_EDIT_PROFILE,
   STAT_LABEL_TOTAL_TRIPS,
   STAT_LABEL_RATING,
-} from '../../constants/profile/constants';
+} from '../../constants/profile';
 
 export default function ProfileLayout({
   role,

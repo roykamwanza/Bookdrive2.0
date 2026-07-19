@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileLayout from './profilelayout';
-import { DriverProfileScreenProps } from '../../types/profile/types';
-import { useDriverProfileScreen } from '../../hooks/profile/hooks';
+import { DriverProfileScreenProps } from '../../types/profile';
+import { useDriverProfileScreen } from '../../hooks/profile';
 import {
   ROLE_DRIVER,
   STAT_LABEL_DRIVER_TRIPS,
@@ -10,7 +10,7 @@ import {
   DRIVER_ACTION_DOCUMENTS,
   DRIVER_ACTION_SETTINGS,
   DEFAULT_ACTION_LOGOUT,
-} from '../../constants/profile/constants';
+} from '../../constants/profile';
 
 export default function DriverProfileScreen({ navigation, route }: DriverProfileScreenProps) {
   const { driver, onBack, onEdit, onLogout } = useDriverProfileScreen({ navigation, route });

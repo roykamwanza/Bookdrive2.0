@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { QuickAction, DriverProfileScreenProps, PassengerProfileScreenProps } from '../../types/profile/types';
+import { QuickAction, DriverProfileScreenProps, PassengerProfileScreenProps } from '../types/profile';
+import { useAuth } from '../context/authcontext';
 import {
     SAMPLE_DRIVER_NAME,
     SAMPLE_DRIVER_PHONE,
@@ -13,7 +14,7 @@ import {
     DEFAULT_ACTION_PLACES,
     DEFAULT_ACTION_PRIVACY,
     DEFAULT_ACTION_LOGOUT
-} from '../../constants/profile/constants';
+} from '../constants/profile';
 
 export function useProfileScreen() {
     const { t } = useTranslation();
@@ -48,20 +49,25 @@ export function useProfileLayout(onLogout?: () => void, quickActions?: QuickActi
 }
 
 export function useDriverProfileScreen({ navigation, route }: DriverProfileScreenProps) {
+    const { user, logout } = useAuth();
     const driver = {
-        name: SAMPLE_DRIVER_NAME,
-        phone: SAMPLE_DRIVER_PHONE,
-        email: SAMPLE_DRIVER_EMAIL,
+        name: user?.name || SAMPLE_DRIVER_NAME,
+        phone: user?.phone || SAMPLE_DRIVER_PHONE,
+        email: user?.email || SAMPLE_DRIVER_EMAIL,
         rating: 4.8,
         totalTrips: 312,
-        avatarUri: null,
+        avatarUri: user?.avatarUrl || null,
         ...route?.params,
     };
 
     const onBack = () => navigation?.goBack?.();
-    const onEdit = () => navigation?.navigate?.('EditDriverProfile');
-    const onLogout = () => {
-        // Wire up to your real auth sign-out logic
+    const onEdit = () => navigation?.navigate?.('EditProfile');
+    const onLogout = async () => {
+        try {
+            await logout();
+        } catch (e) {
+            console.error('Logout error', e);
+        }
     };
 
     return {
@@ -73,20 +79,25 @@ export function useDriverProfileScreen({ navigation, route }: DriverProfileScree
 }
 
 export function usePassengerProfileScreen({ navigation, route }: PassengerProfileScreenProps) {
+    const { user, logout } = useAuth();
     const passenger = {
-        name: SAMPLE_PASSENGER_NAME,
-        phone: SAMPLE_PASSENGER_PHONE,
-        email: SAMPLE_PASSENGER_EMAIL,
+        name: user?.name || SAMPLE_PASSENGER_NAME,
+        phone: user?.phone || SAMPLE_PASSENGER_PHONE,
+        email: user?.email || SAMPLE_PASSENGER_EMAIL,
         rating: 4.9,
         totalTrips: 58,
-        avatarUri: null,
+        avatarUri: user?.avatarUrl || null,
         ...route?.params,
     };
 
     const onBack = () => navigation?.goBack?.();
-    const onEdit = () => navigation?.navigate?.('EditPassengerProfile');
-    const onLogout = () => {
-        // Wire up to your real auth sign-out logic
+    const onEdit = () => navigation?.navigate?.('EditProfile');
+    const onLogout = async () => {
+        try {
+            await logout();
+        } catch (e) {
+            console.error('Logout error', e);
+        }
     };
 
     return {
