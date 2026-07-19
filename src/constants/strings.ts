@@ -29,3 +29,18 @@ export const DRIVER_REQUEST_STRINGS = {
   newCount: '{{count}} new',
   tripAcceptedMessage: 'Trip accepted! Proceeding to pickup.',
 } as const;
+
+export const tripStatusString = {
+  steps: {
+    accepted: 'Accepted',
+    arrived: 'Arrived',
+    inTransit: 'In Transit',
+    completed: 'Completed',
+  },
+  cta: {
+    confirmArrival: 'Confirm Arrival',
+    startTrip: 'Start Trip',
+    completeTrip: 'Complete Trip',
+    done: 'Done',
+  }
+} as const;

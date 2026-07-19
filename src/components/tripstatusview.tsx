@@ -1,24 +1,19 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { styles } from '../styles/tripstatusviewstyles';
 import { colors } from '../constants/theme';
 import type { TripStage } from '../types/driver';
 import type { TripStatusProps } from '../types/driver';
+import { tripStatusString } from '../constants/strings';
 
-const STEPS: { key: TripStage; label: string }[] = [
-  { key: 'requested', label: 'Accepted' },
-  { key: 'arrived', label: 'Arrived' },
-  { key: 'in-transit', label: 'In Transit' },
-  { key: 'completed', label: 'Completed' },
+const STEPS: { key: TripStage }[] = [
+  { key: 'requested' },
+  { key: 'arrived' },
+  { key: 'in-transit' },
+  { key: 'completed' },
 ];
-
-const CTA_LABEL: Record<TripStage, string> = {
-  requested: 'Confirm Arrival',
-  arrived: 'Start Trip',
-  'in-transit': 'Complete Trip',
-  completed: 'Done',
-};
 
 const STAGE_ICON: Record<TripStage, keyof typeof Ionicons.glyphMap> = {
   requested: 'car-sport',
@@ -28,8 +23,39 @@ const STAGE_ICON: Record<TripStage, keyof typeof Ionicons.glyphMap> = {
 };
 
 export function TripStatusView({ request, onDone, onAdvance }: TripStatusProps) {
+  const { t } = useTranslation();
   const stage = request.tripStage || 'requested';
   const stepIndex = STEPS.findIndex((s) => s.key === stage);
+
+  const getStepLabel = (key: TripStage) => {
+    switch (key) {
+      case 'requested':
+        return t('driver.tripStatus.steps.accepted', tripStatusString.steps.accepted);
+      case 'arrived':
+        return t('driver.tripStatus.steps.arrived', tripStatusString.steps.arrived);
+      case 'in-transit':
+        return t('driver.tripStatus.steps.inTransit', tripStatusString.steps.inTransit);
+      case 'completed':
+        return t('driver.tripStatus.steps.completed', tripStatusString.steps.completed);
+      default:
+        return '';
+    }
+  };
+
+  const getCtaLabel = (key: TripStage) => {
+    switch (key) {
+      case 'requested':
+        return t('driver.tripStatus.cta.confirmArrival', tripStatusString.cta.confirmArrival);
+      case 'arrived':
+        return t('driver.tripStatus.cta.startTrip', tripStatusString.cta.startTrip);
+      case 'in-transit':
+        return t('driver.tripStatus.cta.completeTrip', tripStatusString.cta.completeTrip);
+      case 'completed':
+        return t('driver.tripStatus.cta.done', tripStatusString.cta.done);
+      default:
+        return '';
+    }
+  };
 
   const handlePress = () => {
     if (stage === 'completed') {
@@ -66,7 +92,7 @@ export function TripStatusView({ request, onDone, onAdvance }: TripStatusProps) 
                     isActive && styles.stepLabelActive,
                   ]}
                 >
-                  {step.label}
+                  {getStepLabel(step.key)}
                 </Text>
               </View>
               {index < STEPS.length - 1 && (
@@ -83,7 +109,7 @@ export function TripStatusView({ request, onDone, onAdvance }: TripStatusProps) 
       </View>
 
       <TouchableOpacity style={styles.ctaButton} onPress={handlePress}>
-        <Text style={styles.ctaText}>{CTA_LABEL[stage]}</Text>
+        <Text style={styles.ctaText}>{getCtaLabel(stage)}</Text>
       </TouchableOpacity>
     </View>
   );

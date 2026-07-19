@@ -51,7 +51,21 @@
     "offline": "Offline",
     "incomingRequests": "Incoming Requests",
     "newCount": "{{count}} new",
-    "tripAcceptedMessage": "Trip accepted! Proceeding to pickup."
+    "tripAcceptedMessage": "Trip accepted! Proceeding to pickup.",
+    "tripStatus": {
+      "steps": {
+        "accepted": "Accepted",
+        "arrived": "Arrived",
+        "inTransit": "In Transit",
+        "completed": "Completed"
+      },
+      "cta": {
+        "confirmArrival": "Confirm Arrival",
+        "startTrip": "Start Trip",
+        "completeTrip": "Complete Trip",
+        "done": "Done"
+      }
+    }
   },
   "profile": {
     "title": "Profile",

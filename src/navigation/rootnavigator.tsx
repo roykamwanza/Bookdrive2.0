@@ -9,7 +9,6 @@ import { RootStackParamList } from '../types';
 
 // Import your Splash Screen
 import SplashScreen from '../screens/splash/splashscreen';
-
 import LoginScreen from '../screens/login/loginscreen';
 import SignUpScreen from '../screens/signup/signupscreen';
 import HomeScreen from '../screens/home/homescreen';

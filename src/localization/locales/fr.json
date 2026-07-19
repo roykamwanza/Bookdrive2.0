@@ -51,7 +51,21 @@
     "offline": "Hors ligne",
     "incomingRequests": "Demandes entrantes",
     "newCount": "{{count}} nouvelle(s)",
-    "tripAcceptedMessage": "Course acceptée ! En route vers le point de départ."
+    "tripAcceptedMessage": "Course acceptée ! En route vers le point de départ.",
+    "tripStatus": {
+      "steps": {
+        "accepted": "Acceptée",
+        "arrived": "Arrivé",
+        "inTransit": "En route",
+        "completed": "Terminée"
+      },
+      "cta": {
+        "confirmArrival": "Confirmer l'arrivée",
+        "startTrip": "Démarrer la course",
+        "completeTrip": "Terminer la course",
+        "done": "Terminé"
+      }
+    }
   },
   "profile": {
     "title": "Profil",
