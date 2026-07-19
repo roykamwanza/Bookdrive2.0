@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 // Dev 5 owns the real AuthContext. Swap this import for theirs once merged.
-import { useAuth } from '../hooks/useauth';
+import { useAuth } from '../context/authcontext';
 import type { RootStackParamList } from '../types/navigation';
 import { colors } from '../constants/theme';
 

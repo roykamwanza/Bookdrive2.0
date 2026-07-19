@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import styles from '../styles/homescreen.styles';
+import { colors, spacing, typography } from '../../constants/theme';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -13,3 +13,23 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: spacing.lg,
+  },
+  title: {
+    ...typography.h1,
+    color: colors.primary,
+    marginBottom: spacing.sm,
+  },
+  subtitle: {
+    ...typography.body,
+    color: colors.muted,
+    textAlign: 'center',
+  },
+});
