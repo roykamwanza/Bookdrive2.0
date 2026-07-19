@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '../constants/theme';
 import { styles } from '../styles/driverheaderstyles';
 import { DriverHeaderProps } from '../types/driver';
+import { driverHeaderString } from '../constants/strings';
 
 export function DriverHeader({ onBack }: DriverHeaderProps) {
   const { t } = useTranslation();
@@ -14,10 +15,10 @@ export function DriverHeader({ onBack }: DriverHeaderProps) {
       <TouchableOpacity onPress={onBack} hitSlop={10}>
         <Ionicons name="arrow-back" size={22} color={colors.textInverse} />
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>{t('driver.brandName', 'BOOKDRIVE')}</Text>
+      <Text style={styles.headerTitle}>{t('driver.brandName', driverHeaderString.brandName)}</Text>
       <View style={styles.driverModeBadge}>
         <View style={styles.liveDot} />
-        <Text style={styles.driverModeText}>{t('driver.modeLabel', 'DRIVER MODE')}</Text>
+        <Text style={styles.driverModeText}>{t('driver.modeLabel', driverHeaderString.modeLabel)}</Text>
       </View>
     </View>
   );

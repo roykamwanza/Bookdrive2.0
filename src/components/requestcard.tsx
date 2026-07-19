@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { colors } from '../constants/theme';
 import { styles } from '../styles/requestcardstyles';
 import { RequestCardProps } from '../types/driver';
+import { requestCardString } from '../constants/strings';
 
 // TODO(Dev1): swap the two TouchableOpacity buttons below for <CustomButton
 // variant="primary" /> and <CustomButton variant="secondary" /> once the
@@ -23,15 +24,15 @@ export function RequestCard({ request, onAccept, onReject }: RequestCardProps) {
           <View style={styles.distanceRow}>
             <Ionicons name="location-sharp" size={12} color={colors.muted} />
             <Text style={styles.distanceText}>
-              {request.distanceAwayKm} {t('driver.distanceUnitLabel', 'km away')}
+              {request.distanceAwayKm} {t('driver.distanceUnitLabel', requestCardString.distanceUnitLabel)}
             </Text>
           </View>
         </View>
         <View style={styles.fareBlock}>
           <Text style={styles.fareAmount}>
-            {t('driver.currencySymbol', 'K')}{request.estimatedFare.toFixed(2)}
+            {t('driver.currencySymbol', requestCardString.currencySymbol)}{request.estimatedFare.toFixed(2)}
           </Text>
-          <Text style={styles.fareLabel}>{t('driver.fareLabel', 'EST. FARE')}</Text>
+          <Text style={styles.fareLabel}>{t('driver.fareLabel', requestCardString.fareLabel)}</Text>
         </View>
       </View>
 
@@ -39,16 +40,16 @@ export function RequestCard({ request, onAccept, onReject }: RequestCardProps) {
         <TouchableOpacity
           style={styles.rejectButton}
           onPress={() => onReject(request)}
-          accessibilityLabel={t('driver.rejectAccessibility', 'Reject request from {{passengerName}}', { passengerName: request.passengerName })}
+          accessibilityLabel={t('driver.rejectAccessibility', requestCardString.rejectAccessibilityLabel(request.passengerName), { passengerName: request.passengerName })}
         >
-          <Text style={styles.rejectText}>{t('driver.reject', 'Reject')}</Text>
+          <Text style={styles.rejectText}>{t('driver.reject', requestCardString.rejectLabel)}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.acceptButton}
           onPress={() => onAccept(request)}
-          accessibilityLabel={t('driver.acceptAccessibility', 'Accept request from {{passengerName}}', { passengerName: request.passengerName })}
+          accessibilityLabel={t('driver.acceptAccessibility', requestCardString.acceptAccessibilityLabel(request.passengerName), { passengerName: request.passengerName })}
         >
-          <Text style={styles.acceptText}>{t('driver.accept', 'Accept')}</Text>
+          <Text style={styles.acceptText}>{t('driver.accept', requestCardString.acceptLabel)}</Text>
         </TouchableOpacity>
       </View>
     </View>
