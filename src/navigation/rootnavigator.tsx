@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { colors } from '../constants/theme';
 import { useAuth } from '../context/authcontext';
+import { RootStackParamList } from '../types';
 
 // Import your Splash Screen
 import SplashScreen from '../screens/splash/splashscreen';
@@ -44,7 +45,6 @@ export default function RootNavigator() {
           headerShown: false,
         }}
       >
-
         <Stack.Screen name="Splash" component={SplashScreen} />
 
         {!user ? (

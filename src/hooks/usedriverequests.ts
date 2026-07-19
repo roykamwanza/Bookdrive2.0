@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { DriverStatus, RideRequest } from '../types/driver';
+import type { DriverStatus, RideRequest, TripStage } from '../types/driver';
 import { UseDriverRequestsResult } from '../types/driver';
 // TODO(Dev4): once BookingContext exists, replace the local mock state below
 // with a subscription to live request events instead of useState.
@@ -56,7 +56,9 @@ export function useDriverRequests(): UseDriverRequestsResult {
   const acceptRequest = useCallback((request: RideRequest) => {
     setRequests((prev) =>
       prev.map((r) =>
-        r.id === request.id ? { ...r, status: 'accepted' as const } : r
+        r.id === request.id
+          ? { ...r, status: 'accepted' as const, tripStage: 'requested' as const }
+          : r
       )
     );
   }, []);
@@ -72,6 +74,19 @@ export function useDriverRequests(): UseDriverRequestsResult {
     setRequests((prev) => prev.filter((r) => r.id !== request.id));
   }, []);
 
+  const advanceTripStage = useCallback((request: RideRequest) => {
+    setRequests((prev) =>
+      prev.map((r) => {
+        if (r.id !== request.id) return r;
+        const currentStage = r.tripStage || 'requested';
+        const STAGE_ORDER: TripStage[] = ['requested', 'arrived', 'in-transit', 'completed'];
+        const idx = STAGE_ORDER.indexOf(currentStage);
+        const nextStage = STAGE_ORDER[Math.min(idx + 1, STAGE_ORDER.length - 1)];
+        return { ...r, tripStage: nextStage };
+      })
+    );
+  }, []);
+
   return {
     requests,
     status,
@@ -80,5 +95,6 @@ export function useDriverRequests(): UseDriverRequestsResult {
     acceptRequest,
     rejectRequest,
     completeRequest,
+    advanceTripStage,
   };
 }

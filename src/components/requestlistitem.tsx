@@ -8,6 +8,7 @@ interface RequestListItemProps {
   onAccept: (request: RideRequest) => void;
   onReject: (request: RideRequest) => void;
   onDone: (request: RideRequest) => void;
+  onAdvance: (request: RideRequest) => void;
 }
 
 export function RequestListItem({
@@ -15,6 +16,7 @@ export function RequestListItem({
   onAccept,
   onReject,
   onDone,
+  onAdvance,
 }: RequestListItemProps) {
   if (request.status === 'pending') {
     return (
@@ -23,7 +25,7 @@ export function RequestListItem({
   }
 
   if (request.status === 'accepted') {
-    return <TripStatusView request={request} onDone={onDone} />;
+    return <TripStatusView request={request} onDone={onDone} onAdvance={onAdvance} />;
   }
 
   // 'declined' renders nothing

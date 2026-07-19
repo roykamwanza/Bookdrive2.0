@@ -3,7 +3,7 @@ import { StatusBar, SafeAreaView, FlatList, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../../constants/theme';
-import { DRIVER_REQUEST_STRINGS } from '../../constants/strings';
+import { DRIVER_REQUEST_STRINGS } from '../../constants/strings'
 import { styles } from '../../styles/driverequestscreenstyles'
 import { useDriverRequests } from '../../hooks/usedriverequests';
 import {
@@ -26,6 +26,7 @@ export default function DriverDashboardScreen() {
     acceptRequest,
     rejectRequest,
     completeRequest,
+    advanceTripStage,
   } = useDriverRequests();
 
   return (
@@ -67,6 +68,7 @@ export default function DriverDashboardScreen() {
               onAccept={acceptRequest}
               onReject={rejectRequest}
               onDone={completeRequest}
+              onAdvance={advanceTripStage}
             />
           )}
           contentContainerStyle={styles.listContent}

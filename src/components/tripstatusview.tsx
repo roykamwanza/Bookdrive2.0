@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from '../styles/tripstatusviewstyles';
 import { colors } from '../constants/theme';
-import { useTripStatus } from '../hooks/usetripstatus';
 import type { TripStage } from '../types/driver';
 import type { TripStatusProps } from '../types/driver';
 
@@ -28,18 +27,18 @@ const STAGE_ICON: Record<TripStage, keyof typeof Ionicons.glyphMap> = {
   completed: 'checkmark-circle',
 };
 
-export function TripStatusView({ request, onDone }: TripStatusProps) {
-  const { stage, advance, reset } = useTripStatus();
+export function TripStatusView({ request, onDone, onAdvance }: TripStatusProps) {
+  const stage = request.tripStage || 'requested';
   const stepIndex = STEPS.findIndex((s) => s.key === stage);
 
   const handlePress = () => {
     if (stage === 'completed') {
-      reset();
       onDone(request);
     } else {
-      advance();
+      onAdvance(request);
     }
   };
+
 
   return (
     <View style={styles.container}>

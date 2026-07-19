@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { colors } from '../constants/theme';
 import type { DriverStatus } from '../types/driver';
 import { styles } from '../styles/statesummarystyles';
 import { StatusSummaryProps } from '../types/driver';
-import { statusSummaryString } from '../constants/strings';
 
 export function StatusSummary({ currentStation, status, onToggleStatus }: StatusSummaryProps) {
+  const { t } = useTranslation();
   const isAccepting = status === 'accepting';
 
   return (
     <View style={styles.statusRow}>
       <View style={styles.statusCard}>
-        <Text style={styles.statusCardLabel}>{statusSummaryString.currentlyAtLabel}</Text>
+        <Text style={styles.statusCardLabel}>{t('driver.currentlyAt', 'CURRENTLY AT')}</Text>
         <View style={styles.statusCardValueRow}>
           <Ionicons name="radio-button-on" size={14} color={colors.secondary} />
           <Text style={styles.statusCardValue}>{currentStation}</Text>
@@ -21,7 +22,7 @@ export function StatusSummary({ currentStation, status, onToggleStatus }: Status
       </View>
 
       <TouchableOpacity style={styles.statusCard} onPress={onToggleStatus}>
-        <Text style={styles.statusCardLabel}>{statusSummaryString.statusLabel}</Text>
+        <Text style={styles.statusCardLabel}>{t('driver.status', 'STATUS')}</Text>
         <View style={styles.statusCardValueRow}>
           <Ionicons
             name="checkmark-circle"
@@ -29,7 +30,7 @@ export function StatusSummary({ currentStation, status, onToggleStatus }: Status
             color={isAccepting ? colors.success : colors.muted}
           />
           <Text style={styles.statusCardValue}>
-            {isAccepting ? statusSummaryString.acceptingLabel : statusSummaryString.offlineLabel}
+            {isAccepting ? t('driver.accepting', 'Accepting') : t('driver.offline', 'Offline')}
           </Text>
         </View>
       </TouchableOpacity>

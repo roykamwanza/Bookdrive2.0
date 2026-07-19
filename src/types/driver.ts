@@ -18,6 +18,7 @@ export interface RideRequest {
   pickupEtaMinutes: number;
   status: RequestStatus;
   timestamp: Date;
+  tripStage?: TripStage;
 }
 
 export const TRIP_DISPLAY_STATUS = {
@@ -40,6 +41,8 @@ export interface UseDriverRequestsResult {
   toggleStatus: () => void;
   acceptRequest: (request: RideRequest) => void;
   rejectRequest: (request: RideRequest) => void;
+  completeRequest: (request: RideRequest) => void;
+  advanceTripStage: (request: RideRequest) => void;
 }
 
 // 4. Components Types
@@ -62,18 +65,8 @@ export interface StatusSummaryProps {
   onToggleStatus: () => void;
 }
 
-//TripStatusView
 export interface TripStatusProps {
   request: RideRequest;
   onDone: (request: RideRequest) => void;
-}
-
-export interface UseDriverRequestsResult {
-  requests: RideRequest[];
-  status: DriverStatus;
-  currentStation: string;
-  toggleStatus: () => void;
-  acceptRequest: (request: RideRequest) => void;
-  rejectRequest: (request: RideRequest) => void;
-  completeRequest: (request: RideRequest) => void; // <-- new
+  onAdvance: (request: RideRequest) => void;
 }

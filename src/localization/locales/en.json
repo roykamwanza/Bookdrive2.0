@@ -35,7 +35,23 @@
   "driver": {
     "availableRequests": "Available Requests",
     "accept": "Accept",
-    "updateStatus": "Update Status"
+    "updateStatus": "Update Status",
+    "brandName": "BOOKDRIVE",
+    "modeLabel": "DRIVER MODE",
+    "emptyMessage": "No requests right now",
+    "fareLabel": "EST. FARE",
+    "currencySymbol": "K",
+    "distanceUnitLabel": "km away",
+    "reject": "Reject",
+    "rejectAccessibility": "Reject request from {{passengerName}}",
+    "acceptAccessibility": "Accept request from {{passengerName}}",
+    "currentlyAt": "CURRENTLY AT",
+    "status": "STATUS",
+    "accepting": "Accepting",
+    "offline": "Offline",
+    "incomingRequests": "Incoming Requests",
+    "newCount": "{{count}} new",
+    "tripAcceptedMessage": "Trip accepted! Proceeding to pickup."
   },
   "profile": {
     "title": "Profile",
