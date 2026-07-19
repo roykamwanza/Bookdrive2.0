@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { RootStackParamList } from '../types';
+import type { RootStackParamList } from '../types';
 import { colors } from '../constants/theme';
 
 import SplashScreen from '../screens/splash/splashscreen';
@@ -15,7 +15,6 @@ import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen
 import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
 import ProfileScreen from '../screens/profile/profilescreen';
 import SettingsScreen from '../screens/settings/settingsscreen';
-import { PassengerNavigator } from './passengernavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,7 +22,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Passenger"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: { backgroundColor: colors.primary },
           headerTintColor: colors.textInverse,
@@ -33,11 +32,18 @@ export default function RootNavigator() {
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Passenger" component={PassengerNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Booking" component={BookingScreen} />
-        <Stack.Screen name="BookingHistory" component={BookingHistoryScreen} />
-        <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Booking" component={BookingScreen} options={{ title: 'Book a ride' }} />
+        <Stack.Screen
+          name="BookingHistory"
+          component={BookingHistoryScreen}
+          options={{ title: 'Booking history' }}
+        />
+        <Stack.Screen
+          name="BookingDetails"
+          component={BookingDetailsScreen}
+          options={{ title: 'Booking details' }}
+        />
         <Stack.Screen name="DriverRequests" component={DriverRequestsScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
