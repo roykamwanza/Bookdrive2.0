@@ -28,14 +28,10 @@ export default function RootNavigator(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        {!user ? (
-          <RootStack.Screen name="Auth" component={AuthNavigator} />
-        ) : role === 'driver' ? (
-          <RootStack.Screen name="DriverFlow" component={DriverNavigator} />
-        ) : (
-          <RootStack.Screen name="PassengerFlow" component={PassengerNavigator} />
-        )}
+      <RootStack.Navigator initialRouteName="PassengerFlow" screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name="PassengerFlow" component={PassengerNavigator} />
+        <RootStack.Screen name="DriverFlow" component={DriverNavigator} />
+        <RootStack.Screen name="Auth" component={AuthNavigator} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
