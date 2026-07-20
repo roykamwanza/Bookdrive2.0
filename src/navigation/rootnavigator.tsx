@@ -1,33 +1,25 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
-import { colors } from '../constants/theme';
 import { useAuth } from '../context/authcontext';
-import { RootStackParamList } from '../types';
+import type { RootStackParamList } from '../types/navigation';
+import { colors } from '../constants/theme';
 
-// Import your Splash Screen
-import SplashScreen from '../screens/splash/splashscreen';
-import LoginScreen from '../screens/login/loginscreen';
-import SignUpScreen from '../screens/signup/signupscreen';
-import HomeScreen from '../screens/home/homescreen';
-import BookingScreen from '../screens/booking/bookingscreen';
-import BookingHistoryScreen from '../screens/bookinghistory/bookinghistoryscreen';
-import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen';
-import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
-import ProfileScreen from '../screens/profile/profilescreen';
-import EditProfileScreen from '../screens/profile/editprofilescreen';
-import SettingsScreen from '../screens/settings/settingsscreen';
+import AuthNavigator from './authnavigator';
+import PassengerNavigator from './passengernavigator';
+import DriverNavigator from './drivernavigator';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-export default function RootNavigator() {
+export default function RootNavigator(): React.JSX.Element {
   const { user, isLoading } = useAuth();
+  const role = user?.role;
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={colors.secondary} />
       </View>
     );
@@ -35,35 +27,24 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Splash"
-        screenOptions={{
-          headerStyle: { backgroundColor: colors.primary },
-          headerTintColor: colors.textInverse,
-          contentStyle: { backgroundColor: colors.background },
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="Splash" component={SplashScreen} />
-
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {!user ? (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-          </>
+          <RootStack.Screen name="Auth" component={AuthNavigator} />
+        ) : role === 'driver' ? (
+          <RootStack.Screen name="DriverFlow" component={DriverNavigator} />
         ) : (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-            <Stack.Screen name="Booking" component={BookingScreen} />
-            <Stack.Screen name="BookingHistory" component={BookingHistoryScreen} />
-            <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />
-            <Stack.Screen name="DriverRequests" component={DriverRequestsScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </>
+          <RootStack.Screen name="PassengerFlow" component={PassengerNavigator} />
         )}
-      </Stack.Navigator>
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+  },
+});
