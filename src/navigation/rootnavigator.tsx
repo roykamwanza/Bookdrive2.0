@@ -17,8 +17,8 @@ import BookingScreen from '../screens/booking/bookingscreen';
 import BookingHistoryScreen from '../screens/bookinghistory/bookinghistoryscreen';
 import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen';
 import DriverRequestsScreen from '../screens/driverrequests/driverrequestsscreen';
-import ProfileScreen from '../screens/profile/profilescreen';
-import EditProfileScreen from '../screens/profile/editprofilescreen';
+//import ProfileScreen from '../screens/profile/profilescreen';
+//import EditProfileScreen from '../screens/profile/editprofilescreen';
 import SettingsScreen from '../screens/settings/settingsscreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,8 +56,8 @@ export default function RootNavigator() {
         ) : (
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+            
+          
             <Stack.Screen name="Booking" component={BookingScreen} />
             <Stack.Screen name="BookingHistory" component={BookingHistoryScreen} />
             <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} />

@@ -1,35 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { colors, spacing, typography } from '../../constants/theme';
+import { View, Text, SafeAreaView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { splashstyles } from '../../styles/splashstyles';
+import { splashconstants } from '../../constants/splashconstants';
+import { splashstrings } from '../../strings/splashstrings';
+import { usesplash } from '../../hooks/usesplashhooks';
 
-export default function SplashScreen() {
-  const { t } = useTranslation();
+export default function SplashScreen({ navigation }: any) {
+  usesplash(navigation);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Splash</Text>
-      <Text style={styles.subtitle}>{t('common.appName')} — Splash screen placeholder</Text>
-    </View>
+    <SafeAreaView style={splashstyles.container}>
+      <View style={splashstyles.logoContainer}>
+        <Ionicons name={splashconstants.logoName as any} size={80} color="#FFFFFF" />
+      </View>
+      <Text style={splashstyles.brandName}>{splashstrings.brandName}</Text>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: spacing.lg,
-  },
-  title: {
-    ...typography.h1,
-    color: colors.primary,
-    marginBottom: spacing.sm,
-  },
-  subtitle: {
-    ...typography.body,
-    color: colors.muted,
-    textAlign: 'center',
-  },
-});
