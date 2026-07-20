@@ -1,3 +1,5 @@
+// src/strings/loginstrings.ts
+
 export const loginstrings = {
   subtitle: 'Your Premium Ride Partner',
   emaillabel: 'auth.email',
@@ -7,8 +9,4 @@ export const loginstrings = {
   loginbutton: 'auth.login',
   noaccount: 'auth.noAccount',
   signuplink: 'auth.signUp',
-};
-export const signupstrings = {
-  namelabel: 'auth.name',
-  signupbutton: 'auth.signUp',
 };

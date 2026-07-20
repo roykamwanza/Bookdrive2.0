@@ -1,3 +1,5 @@
+// src/strings/signupstrings.ts
+
 export const signupstrings = {
   title: 'Create Your Free Account',
   formtitle: 'Sign Up',
