@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { QuickAction, DriverProfileScreenProps, PassengerProfileScreenProps } from '../types/profile';
 import { useAuth } from '../context/authcontext';
 import {
@@ -16,16 +14,6 @@ import {
     DEFAULT_ACTION_LOGOUT
 } from '../constants/profile';
 
-export function useProfileScreen() {
-    const { t } = useTranslation();
-    const [selectedRole, setSelectedRole] = useState<'Passenger' | 'Driver'>('Passenger');
-
-    return {
-        selectedRole,
-        setSelectedRole,
-        t,
-    };
-}
 
 export function useProfileLayout(onLogout?: () => void, quickActions?: QuickAction[]) {
     const { width } = useWindowDimensions();
