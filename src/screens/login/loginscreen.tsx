@@ -3,13 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, spacing, typography } from '../../constants/theme';
 
-export default function DriverRequestsScreen() {
+export default function LoginScreen() {
   const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>DriverRequests</Text>
-      <Text style={styles.subtitle}>{t('common.appName')} — DriverRequests screen placeholder</Text>
+      <Text style={styles.title}>Login</Text>
+      <Text style={styles.subtitle}>{t('common.appName')} — Login screen placeholder</Text>
     </View>
   );
 }

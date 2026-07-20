@@ -8,8 +8,8 @@ export default function BookingHistoryScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Booking History</Text>
-      <Text style={styles.subtitle}>{t('common.appName')} — Booking History screen placeholder</Text>
+      <Text style={styles.title}>BookingHistory</Text>
+      <Text style={styles.subtitle}>{t('common.appName')} — BookingHistory screen placeholder</Text>
     </View>
   );
 }

@@ -8,8 +8,8 @@ export default function BookingDetailsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Booking Details</Text>
-      <Text style={styles.subtitle}>{t('common.appName')} — Booking Details screen placeholder</Text>
+      <Text style={styles.title}>BookingDetails</Text>
+      <Text style={styles.subtitle}>{t('common.appName')} — BookingDetails screen placeholder</Text>
     </View>
   );
 }

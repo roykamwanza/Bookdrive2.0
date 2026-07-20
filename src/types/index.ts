@@ -26,3 +26,16 @@ export interface Booking {
   updatedAt: string;
   fare?: number;
 }
+
+export type RootStackParamList = {
+  Splash: undefined;
+  Login: undefined;
+  SignUp: undefined;
+  Home: undefined;
+  Booking: undefined;
+  BookingHistory: undefined;
+  BookingDetails: { bookingId: string };
+  DriverRequests: undefined;
+  Profile: undefined;
+  Settings: undefined;
+};
