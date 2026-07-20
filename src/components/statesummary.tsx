@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { colors } from '../constants/theme';
-import type { DriverStatus } from '../types/driver';
 import { styles } from '../styles/statesummarystyles';
 import { StatusSummaryProps } from '../types/driver';
 import { statusSummaryString } from '../constants/strings';
