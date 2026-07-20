@@ -40,3 +40,4 @@ export type RootStackParamList = {
   EditProfile: undefined;
   Settings: undefined;
 };
+

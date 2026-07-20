@@ -3,13 +3,12 @@ import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { RootStackParamList } from '../types';
 import { colors } from '../constants/theme';
 import { useAuth } from '../context/authcontext';
+import { RootStackParamList } from '../types';
 
 // Import your Splash Screen
 import SplashScreen from '../screens/splash/splashscreen';
-
 import LoginScreen from '../screens/login/loginscreen';
 import SignUpScreen from '../screens/signup/signupscreen';
 import HomeScreen from '../screens/home/homescreen';
@@ -45,7 +44,6 @@ export default function RootNavigator() {
           headerShown: false,
         }}
       >
-
         <Stack.Screen name="Splash" component={SplashScreen} />
 
         {!user ? (
