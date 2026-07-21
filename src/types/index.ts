@@ -44,5 +44,6 @@ export type RootStackParamList = {
   BookingDetails: { bookingId: string };
   DriverRequests: undefined;
   Profile: undefined;
+  EditProfile: undefined;
   Settings: undefined;
 };
