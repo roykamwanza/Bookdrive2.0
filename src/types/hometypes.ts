@@ -9,5 +9,5 @@ export interface HomeGridItem {
 export interface StatCardProps {
   value: string;
   label: string;
-  valueStyle: object;
+  valueStyle?: object;
 }
