@@ -73,6 +73,16 @@ export function TripStatusView({ request, onDone, onAdvance }: TripStatusProps) 
         <Text style={styles.passengerName}>{request.passengerName}</Text>
       </View>
 
+      {/* Active Route Address Info */}
+      <View style={{ backgroundColor: colors.background, padding: 12, borderRadius: 8, marginVertical: 10, borderWidth: 1, borderColor: colors.border }}>
+        <Text style={{ color: colors.text, fontSize: 13, fontWeight: '600', marginBottom: 4 }} numberOfLines={1}>
+          <Text style={{ color: '#30D158' }}>●</Text> Pickup: {request.pickupLocation || 'Pickup Point'}
+        </Text>
+        <Text style={{ color: colors.text, fontSize: 13, fontWeight: '600' }} numberOfLines={1}>
+          <Text style={{ color: colors.secondary }}>●</Text> Drop-off: {request.destination || 'Destination'}
+        </Text>
+      </View>
+
       <View style={styles.stepperRow}>
         {STEPS.map((step, index) => {
           const isActive = index === stepIndex;
