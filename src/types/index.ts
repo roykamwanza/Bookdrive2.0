@@ -25,6 +25,13 @@ export interface Booking {
   requestedAt: string;
   updatedAt: string;
   fare?: number;
+  driverName?: string;
+  driverPhone?: string;
+  driverRating?: number;
+  driverAvatar?: string;
+  vehicleModel?: string;
+  vehiclePlate?: string;
+  rideType?: string;
 }
 
 export type RootStackParamList = {

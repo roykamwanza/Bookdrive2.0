@@ -12,9 +12,9 @@ import { TAB_ICONS } from '../constants/passengernavigator.constants';
 import styles from '../screens/styles/passengernavigator.styles';
 
 import PassengerHomeScreen from '../screens/home/homescreen';
-import BookingScreen from '../screens/booking/bookingscreen';
-import BookingHistoryScreen from '../screens/bookinghistory/bookinghistoryscreen';
-import BookingDetailsScreen from '../screens/bookingdetails/bookingdetailsscreen';
+import { BookingContainer } from '../containers/bookingcontainer';
+import { BookingHistoryContainer } from '../containers/bookinghistorycontainer';
+import { BookingDetailsContainer } from '../containers/bookingdetailscontainer';
 import ProfileScreen from '../screens/profile/profilescreen';
 import SettingsScreen from '../screens/settings/settingsscreen';
 
@@ -25,8 +25,8 @@ const RootStack = createNativeStackNavigator<PassengerStackParamList>();
 function BookingHistoryStackNavigator(): React.JSX.Element {
   return (
     <HistoryStack.Navigator screenOptions={{ headerShown: false }}>
-      <HistoryStack.Screen name="BookingHistory" component={BookingHistoryScreen} />
-      <HistoryStack.Screen name="BookingDetails" component={BookingDetailsScreen} />
+      <HistoryStack.Screen name="BookingHistory" component={BookingHistoryContainer} />
+      <HistoryStack.Screen name="BookingDetails" component={BookingDetailsContainer} />
     </HistoryStack.Navigator>
   );
 }
@@ -34,18 +34,18 @@ function BookingHistoryStackNavigator(): React.JSX.Element {
 function PassengerTabs(): React.JSX.Element {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route }: { route: { name: keyof PassengerTabParamList } }) => ({
         headerShown: false,
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.muted,
         tabBarStyle: styles.tabBar,
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color, size }: { color: string; size: number }) => (
           <Ionicons name={TAB_ICONS[route.name]} size={size} color={color} />
         ),
       })}
     >
       <Tab.Screen name="Home" component={PassengerHomeScreen} />
-      <Tab.Screen name="Booking" component={BookingScreen} />
+      <Tab.Screen name="Booking" component={BookingContainer} />
       <Tab.Screen name="History" component={BookingHistoryStackNavigator} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
