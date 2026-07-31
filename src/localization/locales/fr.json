@@ -35,7 +35,37 @@
   "driver": {
     "availableRequests": "Demandes disponibles",
     "accept": "Accepter",
-    "updateStatus": "Mettre à jour le statut"
+    "updateStatus": "Mettre à jour le statut",
+    "brandName": "BOOKDRIVE",
+    "modeLabel": "MODE CHAUFFEUR",
+    "emptyMessage": "Aucune demande pour le moment",
+    "fareLabel": "TARIF ESTIMÉ",
+    "currencySymbol": "K",
+    "distanceUnitLabel": "km de distance",
+    "reject": "Rejeter",
+    "rejectAccessibility": "Rejeter la demande de {{passengerName}}",
+    "acceptAccessibility": "Accepter la demande de {{passengerName}}",
+    "currentlyAt": "ACTUELLEMENT À",
+    "status": "STATUT",
+    "accepting": "Disponible",
+    "offline": "Hors ligne",
+    "incomingRequests": "Demandes entrantes",
+    "newCount": "{{count}} nouvelle(s)",
+    "tripAcceptedMessage": "Course acceptée ! En route vers le point de départ.",
+    "tripStatus": {
+      "steps": {
+        "accepted": "Acceptée",
+        "arrived": "Arrivé",
+        "inTransit": "En route",
+        "completed": "Terminée"
+      },
+      "cta": {
+        "confirmArrival": "Confirmer l'arrivée",
+        "startTrip": "Démarrer la course",
+        "completeTrip": "Terminer la course",
+        "done": "Terminé"
+      }
+    }
   },
   "profile": {
     "title": "Profil",
