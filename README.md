@@ -115,5 +115,3 @@ npm start
 * **Core Contributors**:
   * golden73
   * SililoAkalilwa
-  * michealsims12
-  * Antigravity AI
