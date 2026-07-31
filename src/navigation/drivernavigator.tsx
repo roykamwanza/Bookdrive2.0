@@ -18,12 +18,12 @@ const RootStack = createNativeStackNavigator<DriverStackParamList>();
 function DriverTabs(): React.JSX.Element {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route }: { route: { name: keyof DriverTabParamList } }) => ({
         headerShown: false,
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.muted,
         tabBarStyle: styles.tabBar,
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color, size }: { color: string; size: number }) => (
           <Ionicons name={TAB_ICONS[route.name]} size={size} color={color} />
         ),
       })}
