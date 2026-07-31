@@ -6,30 +6,41 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Alert,
   Image,
   ActivityIndicator
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { colors, spacing, typography, radius } from '../../constants/theme';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { useBookings } from '../../context/bookingcontext';
+import { Ionicons } from '@expo/vector-icons';
 import { BOOKING_STATUS, BookingStatus } from '../../constants/app';
+import { Booking } from '../../types';
 
 interface BookingDetailsScreenProps {
-  route: {
-    params: {
-      bookingId: string;
-    };
-  };
-  navigation?: any;
+  booking: Booking | undefined;
+  handleCancelTrip: () => void;
+  handleContactDriver: (type: 'call' | 'message') => void;
+  getStatusLabel: (status: BookingStatus) => string;
+  getStatusColor: (status: BookingStatus) => string;
+  formatTime: (isoString: string) => string;
+  baseFare: number;
+  serviceFee: number;
+  vatAmount: number;
+  bookingId: string;
+  navigation: any;
 }
 
-export default function BookingDetailsScreen({ route, navigation }: BookingDetailsScreenProps) {
-  const { t } = useTranslation();
-  const { bookingId } = route.params;
-  const { getBookingDetails, cancelRide } = useBookings();
-  const booking = getBookingDetails(bookingId);
+export default function BookingDetailsScreen({
+  booking,
+  handleCancelTrip,
+  handleContactDriver,
+  getStatusLabel,
+  getStatusColor,
+  formatTime,
+  baseFare,
+  serviceFee,
+  vatAmount,
+  bookingId,
+  navigation
+}: BookingDetailsScreenProps) {
 
   if (!booking) {
     return (
@@ -43,84 +54,6 @@ export default function BookingDetailsScreen({ route, navigation }: BookingDetai
     );
   }
 
-  const handleCancelTrip = () => {
-    Alert.alert(
-      'Cancel Booking',
-      'Are you sure you want to cancel this ride request?',
-      [
-        { text: 'No, Keep Request', style: 'cancel' },
-        { 
-          text: 'Yes, Cancel Ride', 
-          style: 'destructive',
-          onPress: async () => {
-            await cancelRide(booking.id);
-            Alert.alert('Trip Cancelled', 'Your booking request has been cancelled.');
-          }
-        }
-      ]
-    );
-  };
-
-  const handleContactDriver = (type: 'call' | 'message') => {
-    if (!booking.driverPhone) return;
-    Alert.alert(
-      type === 'call' ? 'Simulating Call' : 'Simulating Chat',
-      type === 'call' 
-        ? `Connecting a call to driver ${booking.driverName} at ${booking.driverPhone}...`
-        : `Opening chat channel with ${booking.driverName}...`
-    );
-  };
-
-  const getStatusLabel = (status: BookingStatus) => {
-    switch (status) {
-      case BOOKING_STATUS.PENDING:
-        return 'FINDING DRIVER';
-      case BOOKING_STATUS.ACCEPTED:
-        return 'DRIVER EN ROUTE';
-      case BOOKING_STATUS.IN_PROGRESS:
-        return 'TRIP IN PROGRESS';
-      case BOOKING_STATUS.COMPLETED:
-        return 'COMPLETED';
-      case BOOKING_STATUS.CANCELLED:
-        return 'CANCELLED';
-      default:
-        return (status as string).toUpperCase();
-    }
-  };
-
-  const getStatusColor = (status: BookingStatus) => {
-    switch (status) {
-      case BOOKING_STATUS.COMPLETED:
-        return '#30D158';
-      case BOOKING_STATUS.CANCELLED:
-        return '#FF453A';
-      case BOOKING_STATUS.PENDING:
-      case BOOKING_STATUS.ACCEPTED:
-        return colors.secondary;
-      case BOOKING_STATUS.IN_PROGRESS:
-        return '#0A84FF';
-      default:
-        return colors.text;
-    }
-  };
-
-  // Helper date formatter
-  const formatTime = (isoString: string) => {
-    try {
-      const date = new Date(isoString);
-      return date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-    } catch {
-      return '';
-    }
-  };
-
-  const baseFare = booking.fare ? Math.round(booking.fare * 0.8) : 0;
-  const serviceFee = booking.fare ? Math.round(booking.fare * 0.13) : 0;
-  const vatAmount = booking.fare ? booking.fare - baseFare - serviceFee : 0;
-
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -130,7 +63,7 @@ export default function BookingDetailsScreen({ route, navigation }: BookingDetai
         </TouchableOpacity>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Trip Details</Text>
-          <Text style={styles.headerSubtitle}>ID: #{booking.id.split('-').pop()}</Text>
+          <Text style={styles.headerSubtitle}>ID: #{bookingId.split('-').pop()}</Text>
         </View>
         <View style={[styles.statusBadge, { borderColor: getStatusColor(booking.status) }]}>
           <Text style={[styles.statusText, { color: getStatusColor(booking.status) }]}>
@@ -143,13 +76,11 @@ export default function BookingDetailsScreen({ route, navigation }: BookingDetai
         {/* Map Preview */}
         <View style={styles.mapContainer}>
           <View style={styles.mapLayout}>
-            {/* Grid Map elements */}
             <View style={styles.mapGridLineH1} />
             <View style={styles.mapGridLineH2} />
             <View style={styles.mapGridLineV1} />
             <View style={styles.mapGridLineV2} />
 
-            {/* Simulated Route */}
             <View style={styles.mapRoutePath} />
             <View style={styles.pickupPin}>
               <Ionicons name="location" size={20} color="#34C759" />
