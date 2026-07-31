@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { colors, spacing, typography, radius } from '../../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { BOOKING_STATUS, BookingStatus } from '../../constants/app';
 import { Booking } from '../../types';
 
@@ -27,6 +28,36 @@ interface BookingDetailsScreenProps {
   bookingId: string;
   navigation: any;
 }
+
+const darkMapStyle = [
+  {
+    "elementType": "geometry",
+    "stylers": [{ "color": "#1C1C1E" }]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#8E8E93" }]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [{ "color": "#1C1C1E" }]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#2C2C2E" }]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#AEAEB2" }]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#0F0F12" }]
+  }
+];
 
 export default function BookingDetailsScreen({
   booking,
@@ -73,22 +104,48 @@ export default function BookingDetailsScreen({
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Map Preview */}
+        {/* Real Live Map Preview */}
         <View style={styles.mapContainer}>
-          <View style={styles.mapLayout}>
-            <View style={styles.mapGridLineH1} />
-            <View style={styles.mapGridLineH2} />
-            <View style={styles.mapGridLineV1} />
-            <View style={styles.mapGridLineV2} />
+          <MapView
+            style={StyleSheet.absoluteFillObject}
+            initialRegion={{
+              latitude: booking.pickup.latitude,
+              longitude: booking.pickup.longitude,
+              latitudeDelta: 0.0822,
+              longitudeDelta: 0.0421,
+            }}
+            region={{
+              latitude: (booking.pickup.latitude + booking.destination.latitude) / 2,
+              longitude: (booking.pickup.longitude + booking.destination.longitude) / 2,
+              latitudeDelta: Math.max(Math.abs(booking.pickup.latitude - booking.destination.latitude) * 1.6, 0.015),
+              longitudeDelta: Math.max(Math.abs(booking.pickup.longitude - booking.destination.longitude) * 1.6, 0.015),
+            }}
+            userInterfaceStyle="dark"
+            customMapStyle={darkMapStyle}
+            scrollEnabled={false}
+            zoomEnabled={false}
+          >
+            <Marker coordinate={{ latitude: booking.pickup.latitude, longitude: booking.pickup.longitude }}>
+              <View style={styles.markerContainer}>
+                <View style={[styles.markerDot, { backgroundColor: '#30D158' }]} />
+              </View>
+            </Marker>
 
-            <View style={styles.mapRoutePath} />
-            <View style={styles.pickupPin}>
-              <Ionicons name="location" size={20} color="#34C759" />
-            </View>
-            <View style={styles.dropoffPin}>
-              <Ionicons name="location" size={20} color={colors.secondary} />
-            </View>
-          </View>
+            <Marker coordinate={{ latitude: booking.destination.latitude, longitude: booking.destination.longitude }}>
+              <View style={styles.markerContainer}>
+                <View style={[styles.markerDot, { backgroundColor: colors.secondary }]} />
+              </View>
+            </Marker>
+
+            <Polyline
+              coordinates={[
+                { latitude: booking.pickup.latitude, longitude: booking.pickup.longitude },
+                { latitude: booking.destination.latitude, longitude: booking.destination.longitude }
+              ]}
+              strokeColor={colors.secondary}
+              strokeWidth={3}
+            />
+          </MapView>
         </View>
 
         {/* Route Address Panel */}
@@ -394,62 +451,19 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     borderWidth: 1,
     borderColor: colors.border,
-  },
-  mapLayout: {
-    flex: 1,
-    backgroundColor: '#0F0F12',
     position: 'relative',
   },
-  mapGridLineH1: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: '33%',
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.02)',
+  markerContainer: {
+    padding: 4,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 12,
   },
-  mapGridLineH2: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: '66%',
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.02)',
-  },
-  mapGridLineV1: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: '33%',
-    width: 1,
-    backgroundColor: 'rgba(255,255,255,0.02)',
-  },
-  mapGridLineV2: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: '66%',
-    width: 1,
-    backgroundColor: 'rgba(255,255,255,0.02)',
-  },
-  mapRoutePath: {
-    position: 'absolute',
-    top: '50%',
-    left: '20%',
-    right: '20%',
-    height: 3,
-    backgroundColor: colors.secondary,
-    opacity: 0.5,
-  },
-  pickupPin: {
-    position: 'absolute',
-    top: '40%',
-    left: '15%',
-  },
-  dropoffPin: {
-    position: 'absolute',
-    top: '40%',
-    right: '15%',
+  markerDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
   },
   card: {
     backgroundColor: colors.surface,

@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { colors, spacing, typography, radius } from '../../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { BOOKING_STATUS } from '../../constants/app';
 import { Booking, Location } from '../../types';
 import { RIDE_OPTIONS } from '../../hooks/usebookingscreen';
@@ -37,6 +38,36 @@ interface BookingScreenProps {
   activeBooking: Booking | null;
   navigation: any;
 }
+
+const darkMapStyle = [
+  {
+    "elementType": "geometry",
+    "stylers": [{ "color": "#1C1C1E" }]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#8E8E93" }]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [{ "color": "#1C1C1E" }]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#2C2C2E" }]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#AEAEB2" }]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#0F0F12" }]
+  }
+];
 
 export default function BookingScreen({
   pickup,
@@ -184,46 +215,59 @@ export default function BookingScreen({
           </TouchableOpacity>
         </View>
 
-        {/* Map Simulator */}
+        {/* Real Live Map */}
         <View style={styles.mapSimulatorContainer}>
-          <View style={styles.mapBackground}>
-            <View style={styles.mapGridLineH1} />
-            <View style={styles.mapGridLineH2} />
-            <View style={styles.mapGridLineV1} />
-            <View style={styles.mapGridLineV2} />
-
-            {pickup && destination ? (
-              <>
-                <View style={styles.routePathContainer}>
-                  <View style={styles.routeConnector} />
-                  <View style={styles.movingVehicle}>
-                    <Ionicons name="bus" size={16} color={colors.secondary} />
-                  </View>
+          <MapView
+            style={StyleSheet.absoluteFillObject}
+            initialRegion={{
+              latitude: pickup ? pickup.latitude : -15.4167,
+              longitude: pickup ? pickup.longitude : 28.2833,
+              latitudeDelta: 0.0822,
+              longitudeDelta: 0.0421,
+            }}
+            region={pickup && destination ? {
+              latitude: (pickup.latitude + destination.latitude) / 2,
+              longitude: (pickup.longitude + destination.longitude) / 2,
+              latitudeDelta: Math.max(Math.abs(pickup.latitude - destination.latitude) * 1.6, 0.015),
+              longitudeDelta: Math.max(Math.abs(pickup.longitude - destination.longitude) * 1.6, 0.015),
+            } : undefined}
+            userInterfaceStyle="dark"
+            customMapStyle={darkMapStyle}
+          >
+            {pickup && (
+              <Marker coordinate={{ latitude: pickup.latitude, longitude: pickup.longitude }}>
+                <View style={styles.markerContainer}>
+                  <View style={[styles.markerDot, { backgroundColor: '#30D158' }]} />
                 </View>
-
-                {/* Pickup Pin */}
-                <View style={[styles.mapPin, styles.pickupMapPin]}>
-                  <Ionicons name="location" size={24} color="#34C759" />
-                  <View style={styles.mapPinLabel}>
-                    <Text style={styles.mapPinLabelText} numberOfLines={1}>Pickup</Text>
-                  </View>
-                </View>
-
-                {/* Destination Pin */}
-                <View style={[styles.mapPin, styles.destinationMapPin]}>
-                  <Ionicons name="location" size={24} color={colors.secondary} />
-                  <View style={styles.mapPinLabel}>
-                    <Text style={styles.mapPinLabelText} numberOfLines={1}>Destination</Text>
-                  </View>
-                </View>
-              </>
-            ) : (
-              <View style={styles.mapCenterLabel}>
-                <Ionicons name="map" size={40} color={colors.border} style={{ marginBottom: spacing.sm }} />
-                <Text style={styles.mapCenterText}>Enter locations to preview route</Text>
-              </View>
+              </Marker>
             )}
-          </View>
+
+            {destination && (
+              <Marker coordinate={{ latitude: destination.latitude, longitude: destination.longitude }}>
+                <View style={styles.markerContainer}>
+                  <View style={[styles.markerDot, { backgroundColor: colors.secondary }]} />
+                </View>
+              </Marker>
+            )}
+
+            {pickup && destination && (
+              <Polyline
+                coordinates={[
+                  { latitude: pickup.latitude, longitude: pickup.longitude },
+                  { latitude: destination.latitude, longitude: destination.longitude }
+                ]}
+                strokeColor={colors.secondary}
+                strokeWidth={3}
+              />
+            )}
+          </MapView>
+
+          {!pickup && (
+            <View style={styles.mapOverlayLabel}>
+              <Ionicons name="map-outline" size={28} color={colors.secondary} />
+              <Text style={styles.mapOverlayText}>Enter route points above</Text>
+            </View>
+          )}
         </View>
 
         {/* Ride Options Card list */}
@@ -340,102 +384,35 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     borderWidth: 1,
     borderColor: colors.border,
-  },
-  mapBackground: {
-    flex: 1,
-    backgroundColor: '#0F0F12',
     position: 'relative',
   },
-  mapGridLineH1: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: '33%',
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.03)',
-  },
-  mapGridLineH2: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: '66%',
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.03)',
-  },
-  mapGridLineV1: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: '33%',
-    width: 1,
-    backgroundColor: 'rgba(255,255,255,0.03)',
-  },
-  mapGridLineV2: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: '66%',
-    width: 1,
-    backgroundColor: 'rgba(255,255,255,0.03)',
-  },
-  mapCenterLabel: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mapCenterText: {
-    ...typography.caption,
-    color: colors.muted,
-  },
-  routePathContainer: {
-    position: 'absolute',
-    top: '40%',
-    left: '25%',
-    right: '25%',
-    height: 40,
-    justifyContent: 'center',
-  },
-  routeConnector: {
-    height: 3,
-    backgroundColor: colors.secondary,
-    borderRadius: 2,
-    opacity: 0.6,
-  },
-  movingVehicle: {
-    position: 'absolute',
-    top: -6,
-    left: '40%',
-    backgroundColor: colors.primary,
-    borderWidth: 1.5,
-    borderColor: colors.secondary,
-    padding: 3,
+  markerContainer: {
+    padding: 4,
+    backgroundColor: 'rgba(255,255,255,0.2)',
     borderRadius: 12,
   },
-  mapPin: {
+  markerDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+  },
+  mapOverlayLabel: {
     position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(15,15,18,0.7)',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  pickupMapPin: {
-    top: '40%',
-    left: '15%',
-  },
-  destinationMapPin: {
-    top: '30%',
-    right: '15%',
-  },
-  mapPinLabel: {
-    backgroundColor: colors.surface,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginTop: 2,
-  },
-  mapPinLabelText: {
+  mapOverlayText: {
+    ...typography.caption,
     color: colors.text,
-    fontSize: 9,
     fontWeight: '600',
+    marginTop: spacing.xs,
   },
   optionsSection: {
     marginBottom: spacing.xl,

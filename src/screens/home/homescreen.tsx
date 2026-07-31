@@ -19,15 +19,27 @@ export default function HomeScreen({ navigation }: any) {
     <SafeAreaView style={homestyles.container}>
       <ScrollView contentContainerStyle={homestyles.scroll}>
         
+        {/* Brand Header */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingTop: 15, paddingBottom: 15, borderBottomWidth: 1, borderBottomColor: colors.border }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 24, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.5 }}>
+              BOOK<Text style={{ color: colors.secondary }}>DRIVE</Text>
+            </Text>
+            <View style={{ backgroundColor: '#2C2C2E', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 8 }}>
+              <Text style={{ fontSize: 8, fontWeight: '700', color: colors.muted }}>{user?.role?.toUpperCase() || 'PASSENGER'}</Text>
+            </View>
+          </View>
+          <TouchableOpacity onPress={() => navigate('Profile')}>
+            <Ionicons name="person-circle-outline" size={32} color={colors.secondary} />
+          </TouchableOpacity>
+        </View>
+
         {/* Personalized Welcome Header */}
-        <View style={homestyles.header}>
+        <View style={[homestyles.header, { borderBottomWidth: 0, marginTop: 10 }]}>
           <View>
             <Text style={homestyles.welcomeText}>Hello,</Text>
             <Text style={homestyles.nameText}>{user?.name || 'User'}</Text>
           </View>
-          <TouchableOpacity style={homestyles.profileBadge}>
-            <Ionicons name="person-circle-outline" size={40} color={colors.secondary} />
-          </TouchableOpacity>
         </View>
 
         {/* Action Banner (Request a Ride) */}
