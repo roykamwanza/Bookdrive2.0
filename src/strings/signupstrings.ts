@@ -1,0 +1,18 @@
+// src/strings/signupstrings.ts
+
+export const signupstrings = {
+  title: 'Create Your Free Account',
+  formtitle: 'Sign Up',
+  namelabel: 'Full Name',
+  emaillabel: 'Email',
+  phonelabel: 'Phone Number',
+  passwordlabel: 'Password',
+  registeras: 'Register As',
+  signupbutton: 'Sign Up',
+  haveaccount: 'Already have an account? ',
+  login: 'Login',
+  placeholdername: 'Enter your name',
+  placeholderemail: 'name@example.com',
+  placeholderphone: 'Enter phone number',
+  placeholderpassword: 'Create a password',
+};
