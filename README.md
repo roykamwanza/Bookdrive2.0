@@ -115,3 +115,4 @@ npm start
 * **Core Contributors**:
   * golden73
   * SililoAkalilwa
+  * Brian
