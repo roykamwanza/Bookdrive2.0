@@ -4,7 +4,7 @@ A premium, high-fidelity Minibus Shuttle Booking System built with React Native 
 
 ---
 
-## 🎨 Branding & Design Identity
+## Branding & Design Identity
 
 | Token | Value | Description |
 | :--- | :--- | :--- |
@@ -16,9 +16,9 @@ A premium, high-fidelity Minibus Shuttle Booking System built with React Native 
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-### 👤 Passenger Workspace
+### Passenger Workspace
 * **Interactive Route Planning**: Enter pickup and drop-off points with location searches mapping coordinates in real-time.
 * **Live Map Previews**: Real-time routing lines, pickup markers, and vehicle transit paths rendered with `react-native-maps`.
 * **Sonar Driver Search**: Visually pulsing matching sonar overlays that coordinate driver dispatching.
@@ -34,7 +34,7 @@ A premium, high-fidelity Minibus Shuttle Booking System built with React Native 
 
 ---
 
-## 🏗️ Architecture: Separation of Concerns (SoC)
+##  Architecture: Separation of Concerns (SoC)
 
 The application strictly adheres to a modular **Container-Hook-Screen** layout pattern to isolate state logic from presentational layouts:
 
@@ -52,7 +52,7 @@ graph TD
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+##  Tech Stack & Dependencies
 
 * **Core**: [Expo SDK 54](https://expo.dev) / React Native / TypeScript
 * **Navigation**: [React Navigation 7](https://reactnavigation.org) (Native Stack & Bottom Tab)
@@ -63,7 +63,7 @@ graph TD
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 
 ```text
 src/
@@ -85,7 +85,7 @@ assets/           # Icons, logo art, and splash visual assets
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Prerequisites
 Ensure you have Node.js and Expo CLI installed. Make sure your mobile device has the **Expo Go** application matching SDK 54.
