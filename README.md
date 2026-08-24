@@ -1,4 +1,4 @@
-# 🚍 BookDrive
+# BookDrive
 
 A premium, high-fidelity Minibus Shuttle Booking System built with React Native and Expo SDK 54. BookDrive connects passengers with standard and express minibus shuttles, streamlining transit across Lusaka, Zambia.
 
@@ -16,25 +16,25 @@ A premium, high-fidelity Minibus Shuttle Booking System built with React Native 
 
 ---
 
-##  Key Features
+## Key Features
 
 ### Passenger Workspace
 * **Interactive Route Planning**: Enter pickup and drop-off points with location searches mapping coordinates in real-time.
 * **Live Map Previews**: Real-time routing lines, pickup markers, and vehicle transit paths rendered with `react-native-maps`.
 * **Sonar Driver Search**: Visually pulsing matching sonar overlays that coordinate driver dispatching.
-* **Live Trip Tracking**: Dynamic tracking cards on the dashboard updating en-route steps (Accepted ➔ Arrived ➔ In Transit ➔ Completed).
+* **Live Trip Tracking**: Dynamic tracking cards on the dashboard updating en-route steps (Accepted → Arrived → In Transit → Completed).
 * **Trip History Log**: Categorized logs (All, Completed, Cancelled) showing past fares, dates, and driver details.
 * **Itemized Fare Receipts**: Detailed calculations of base fare, BookDrive fees, and local transit VAT.
 
-### 🚘 Driver Workspace
+### Driver Workspace
 * **Status Controls**: Toggle availability between online (Accepting) and offline modes.
 * **Incoming Request Cards**: Detailed ride requests showcasing passenger initials, distances, ETAs, fares, and precise routes.
-* **Active Trip Tracker**: Linear stepping guide to control the trip cycle (Confirm Arrival ➔ Start Trip ➔ Complete Trip ➔ Done) with quick contact shortcuts.
+* **Active Trip Tracker**: Linear stepping guide to control the trip cycle (Confirm Arrival → Start Trip → Complete Trip → Done) with quick contact shortcuts.
 * **Illustrative Map Feeds**: Styled route maps detailing rider coordinates.
 
 ---
 
-##  Architecture: Separation of Concerns (SoC)
+## Architecture: Separation of Concerns (SoC)
 
 The application strictly adheres to a modular **Container-Hook-Screen** layout pattern to isolate state logic from presentational layouts:
 
@@ -52,7 +52,7 @@ graph TD
 
 ---
 
-##  Tech Stack & Dependencies
+## Tech Stack & Dependencies
 
 * **Core**: [Expo SDK 54](https://expo.dev) / React Native / TypeScript
 * **Navigation**: [React Navigation 7](https://reactnavigation.org) (Native Stack & Bottom Tab)
@@ -109,10 +109,9 @@ npm start
 
 ---
 
-## 👥 Development Team
+## Development Team
 
 * **Team Lead**: Roy Kamwanza
 * **Core Contributors**:
-  * Golden Chisenga 
+  * Golden Chisenga
   * Sililo Akalilwa
-  
