@@ -111,7 +111,7 @@ npm start
 
 ## 👥 Development Team
 
-* **Product Lead**: Roy Kamwanza
+* **Team Lead**: Roy Kamwanza
 * **Core Contributors**:
   * Golden Chisenga 
   * Sililo Akalilwa
