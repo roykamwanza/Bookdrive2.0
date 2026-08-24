@@ -113,6 +113,6 @@ npm start
 
 * **Product Lead**: Roy Kamwanza
 * **Core Contributors**:
-  * golden73
-  * SililoAkalilwa
+  * Golden Chisenga 
+  * Sililo Akalilwa
   
